@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:45:59 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/18 18:11:49 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/18 18:14:38 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ Bureaucrat& Bureaucrat::operator=( const Bureaucrat& copy )
     if(*this != copy)
     {
         _name = copy.getName();
-        _range = copy.getRange();
+        _grade = copy.getGrade();
     }
     return(*this);   
 }
@@ -38,7 +38,7 @@ Bureaucrat::Bureaucrat ( const Bureaucrat &copy )
 {
     std::cout <<"Bureaucrat copy constructor called" << std::endl;
     _name = copy.getName();
-    _range = copy.getRange();
+    _grade = copy.getGrade();
 }
 
 Bureaucrat::~Bureaucrat()
@@ -54,12 +54,12 @@ std::string Bureaucrat::getName( void )
 {
     return (this->_name);
 }
-void Bureaucrat::setRange( int range )
+void Bureaucrat::setGrade( int grade )
 {
-    _range = range;
+    _grade = grade;
 }
     
-int Bureaucrat::getRange ( void )
+int Bureaucrat::getGrade ( void )
 {
-    return (_range);
+    return (_grade);
 }

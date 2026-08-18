@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:37:13 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/18 17:45:27 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/18 18:13:37 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ class Bureaucrat{
     private : 
 
     const std::string _name;
-    int _range;
+    int _grade;
     
     public : 
 
@@ -32,8 +32,8 @@ class Bureaucrat{
 
     void setName( std::string name );
     std::string getName( void );
-    void setRange( int range );
-    int getRange ( void );
+    void setGrade( int grade );
+    int getGrade ( void );
     
     
     
