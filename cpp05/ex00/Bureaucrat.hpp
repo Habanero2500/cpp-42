@@ -6,16 +6,18 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:37:13 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/18 18:13:37 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/19 18:16:35 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
 
+#include <stdexcept>
 #include <iostream>
 
 class Bureaucrat{
+    
     private : 
 
     const std::string _name;
@@ -23,25 +25,38 @@ class Bureaucrat{
     
     public : 
 
-    //Constructors and Orthodox canonical form
+    //Orthodox canonical form + constructors
     Bureaucrat ( void );
-    Bureaucrat ( std::string name );
     Bureaucrat& operator=( const Bureaucrat& copy );
     Bureaucrat ( const Bureaucrat &copy );
     ~Bureaucrat();
+    Bureaucrat (std::string _name, int grade );
+    Bureaucrat ( std::string name );
 
-    void setName( std::string name );
-    std::string getName( void );
+    //Getters and setters
+
+    std::string getName( void ) const;
     void setGrade( int grade );
-    int getGrade ( void );
+    int getGrade ( void ) const;
     
-    
-    
-    
-    
-    
-    
-    
+    //Increase and decrease grade
+    void upGrade( void );
+    void downGrade( void );
 };
+
+class GradeTooHighException : public std::exception
+{
+    public:
+    virtual const char *what() const throw();
+};
+
+class GradeTooLowException : public std::exception
+{
+public:
+    virtual const char *what() const throw();
+};
+
+std::ostream& operator << (std::ostream& out, const Bureaucrat& value);
+
 
 #endif
