@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 18:45:34 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/19 18:58:27 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/20 18:45:24 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <stdexcept>
-
 #ifndef FORM_HPP
 #define FORM_HPP
+
+#include <iostream>
+
+class Bureaucrat;
 
 class Form{
     
@@ -27,13 +28,28 @@ class Form{
     
     public :
 
-    //Orthodox Canonical Form
+    //Orthodox Canonical Form + constructors
     Form( void );
-    Form( std::string _name );
+    Form( std::string name );
     Form( const Form& copy);
     Form& operator=(const Form& copy);
     ~Form( void );
-}
+    Form(std::string name, bool signos, int sign, int exec);
 
+    //Getters and setters
+    std::string getName( void )const;
+    bool getSigned ( void ) const;
+    int getSignerGrade ( void ) const;
+    int getExecGrade ( void ) const;
+    
+    // Specific functions
+    void beSigned(const Bureaucrat& signer);
+    
+    //Ecrire les fonctions du début
+    //Faire les exceptions
+    //Rajouter la fonction signForm chez les bureaucrates
+};
+
+std::ostream &operator<<(std::ostream& out, const Form& form);
 
 #endif

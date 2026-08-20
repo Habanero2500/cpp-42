@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:45:59 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/19 18:20:38 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/20 18:41:49 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,21 @@ const char *GradeTooHighException::what() const throw()
 const char *GradeTooLowException::what() const throw()
 {
     return "Grade can not be inferior to 150.";
+}
+void Bureaucrat::signForm( Form& form )
+{
+    if(form.getSigned() == true)
+    {
+        std::cout << _name << "cannot sign " << form.getName() << "because it's already signed." << std::endl;
+        return;
+    }
+    try
+    {
+        form.beSigned(*this);
+        std::cout << _name << " signed the form " << form.getName() << std::endl;
+    }
+    catch(std::exception& e)
+    {
+        std::cout << _name << " cannot sign, grade " << form.getSignerGrade() << " required." << std::endl;
+    }
 }
