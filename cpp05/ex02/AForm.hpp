@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 18:45:34 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/21 15:55:10 by user             ###   ########.fr       */
+/*   Updated: 2026/08/21 16:48:08 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORM_HPP
-#define FORM_HPP
+#ifndef AFORM_HPP
+#define AFORM_HPP
 
 #include <iostream>
 
 class Bureaucrat;
 
-class Form{
+class AForm{
     
     private :
     
@@ -29,12 +29,12 @@ class Form{
     public :
 
     //Orthodox Canonical Form + constructors
-    Form( void );
-    Form( std::string name );
-    Form( const Form& copy);
-    Form& operator=(const Form& copy);
-    ~Form( void );
-    Form(std::string name, bool signos, int sign, int exec);
+    AForm( void );
+    AForm( std::string name );
+    AForm( const AForm& copy);
+    AForm& operator=(const AForm& copy);
+    ~AForm( void );
+    AForm(std::string name, bool signos, int sign, int exec);
 
     //Getters and setters
     std::string getName( void )const;
@@ -59,7 +59,7 @@ class Form{
     };
 };
 
-std::ostream &operator<<(std::ostream& out, const Form& form);
+std::ostream &operator<<(std::ostream& out, const AForm& form);
 
 
 

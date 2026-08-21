@@ -6,12 +6,12 @@
 #    By: user <user@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/18 17:17:29 by jmetayer          #+#    #+#              #
-#    Updated: 2026/08/20 15:08:33 by user             ###   ########.fr        #
+#    Updated: 2026/08/21 16:42:48 by user             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = form
-SRCS = main.cpp Bureaucrat.cpp Form.cpp
+SRCS = main.cpp Bureaucrat.cpp AForm.cpp
 
 CC = c++ 
 FLAGS = -Wall -Werror -Wextra -std=c++98
