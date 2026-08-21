@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 18:45:34 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/20 18:45:24 by user             ###   ########.fr       */
+/*   Updated: 2026/08/21 15:55:10 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,23 @@ class Form{
     
     // Specific functions
     void beSigned(const Bureaucrat& signer);
-    
-    //Ecrire les fonctions du début
-    //Faire les exceptions
-    //Rajouter la fonction signForm chez les bureaucrates
+
+    //Class 
+    class GradeTooHighException : public std::exception
+    {
+        public:
+        virtual const char *what() const throw();
+    };
+
+    class GradeTooLowException : public std::exception
+    {
+        public:
+        virtual const char *what() const throw();
+    };
 };
 
 std::ostream &operator<<(std::ostream& out, const Form& form);
+
+
 
 #endif

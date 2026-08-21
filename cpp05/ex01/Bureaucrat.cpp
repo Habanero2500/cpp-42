@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:45:59 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/20 18:41:49 by user             ###   ########.fr       */
+/*   Updated: 2026/08/21 16:04:26 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ Bureaucrat& Bureaucrat::operator=( const Bureaucrat& copy )
 Bureaucrat::Bureaucrat (std::string name, int grade ) : _name( name )
 {
     if( grade < 1 )
-        throw GradeTooHighException();
+        throw Bureaucrat::GradeTooHighException();
     else if ( grade > 150 )
-        throw GradeTooLowException();
+        throw Bureaucrat::GradeTooLowException();
     else 
         _grade = grade;
     std::cout << "Bureaucrat classical constructor is used" << std::endl; 
@@ -69,14 +69,14 @@ int Bureaucrat::getGrade ( void ) const
 void Bureaucrat::upGrade( void )
 {
     if(_grade == 1)
-        throw GradeTooHighException();
+        throw Bureaucrat::GradeTooHighException();
     _grade--;
 }
 
 void Bureaucrat::downGrade( void )
 {
     if(_grade == 150)
-        throw GradeTooLowException();
+        throw Bureaucrat::GradeTooLowException();
     _grade++;
 }
 
@@ -86,12 +86,12 @@ std::ostream& operator<<(std::ostream &out, const Bureaucrat &value)
 	return out;
 }
 
-const char *GradeTooHighException::what() const throw()
+const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
     return "Grade can not be superior to 1.";
 }
 
-const char *GradeTooLowException::what() const throw()
+const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
     return "Grade can not be inferior to 150.";
 }
@@ -99,7 +99,7 @@ void Bureaucrat::signForm( Form& form )
 {
     if(form.getSigned() == true)
     {
-        std::cout << _name << "cannot sign " << form.getName() << "because it's already signed." << std::endl;
+        std::cout << _name << " cannot sign " << form.getName() << " because it's already signed." << std::endl;
         return;
     }
     try

@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 18:24:57 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/20 18:46:54 by user             ###   ########.fr       */
+/*   Updated: 2026/08/21 16:04:08 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,14 @@ Form::~Form( void )
 }
 Form::Form(std::string name, bool signos, int sign, int exec) : _name(name), _signed(signos), _signer(sign), _executer(exec)
 {
-    std::cout << "Form classical constructor used" << std::endl;
-}
+    if( sign < 1 || exec < 1)
+        throw Form::GradeTooHighException();
+    else if ( sign > 150 || exec > 150 )
+        throw Form::GradeTooLowException();
+    else
+        std::cout << "Form classical constructor used" << std::endl;
 
+}
 
 std::string Form::getName( void ) const
 {
@@ -78,6 +83,16 @@ std::ostream& operator << (std::ostream& out, const Form& form)
 void Form::beSigned(const Bureaucrat& signer)
 {
     if(signer.getGrade() > _signer)
-        throw GradeTooLowException();
+        throw Form::GradeTooLowException();
     _signed = true;
+}
+
+const char *Form::GradeTooHighException::what() const throw()
+{
+    return "Form signer cannot be superior to 1.";
+}
+
+const char *Form::GradeTooLowException::what() const throw()
+{
+    return "Form signer cannot be inferior to 150.";
 }
