@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 16:16:46 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/26 20:31:16 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/27 00:13:54 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ ShruberryCreationForm::~ShruberryCreationForm( void )
 }
 ShruberryCreationForm::ShruberryCreationForm( std::string name ) : AForm(name, 0, 145, 137) 
 {
-    std::cout << "Classical constructor used" << std::endl;
+    std::cout << "Classical SCF constructor used" << std::endl;
 }
 
 std::string const&	ShruberryCreationForm::getTarget( void ) const
