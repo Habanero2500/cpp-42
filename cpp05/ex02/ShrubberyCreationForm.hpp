@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/26 16:16:21 by jmetayer          #+#    #+#             */
+/*   Updated: 2026/08/26 16:39:23 by jmetayer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SHRUBBERYCREATIONFORM_HPP
 #define SHRUBBERYCREATIONFORM_HPP
 
@@ -19,9 +31,9 @@ class ShruberryCreationForm : virtual public AForm
 
     ShruberryCreationForm( std::string _copy );
     void	execute(void) const;
+
     //getter
     std::string const&	getTarget(void) const;
-
 };
 
 #endif

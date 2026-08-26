@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 18:45:34 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/21 16:48:08 by user             ###   ########.fr       */
+/*   Updated: 2026/08/26 19:00:41 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define AFORM_HPP
 
 #include <iostream>
+#include <fstream>
 
 class Bureaucrat;
 

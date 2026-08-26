@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user <user@student.42.fr>                  +#+  +:+       +#+         #
+#    By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/18 17:17:29 by jmetayer          #+#    #+#              #
-#    Updated: 2026/08/21 16:42:48 by user             ###   ########.fr        #
+#    Updated: 2026/08/26 20:26:45 by jmetayer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = form
-SRCS = main.cpp Bureaucrat.cpp AForm.cpp
+SRCS = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp
 
 CC = c++ 
 FLAGS = -Wall -Werror -Wextra -std=c++98

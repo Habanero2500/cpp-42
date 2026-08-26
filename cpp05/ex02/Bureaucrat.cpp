@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:45:59 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/21 16:04:26 by user             ###   ########.fr       */
+/*   Updated: 2026/08/26 19:07:14 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
     return "Grade can not be inferior to 150.";
 }
-void Bureaucrat::signForm( Form& form )
+void Bureaucrat::signForm( AForm& form )
 {
     if(form.getSigned() == true)
     {
