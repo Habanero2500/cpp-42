@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 13:07:24 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/27 22:17:19 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/27 22:32:32 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int main ( void )
     std::cout << std::endl << "** TEST WITH A SIGNED SCF WITH SUFFICIENT GRADE **" << std::endl << std::endl;    
     try
     {
-        test2.execute(junior);
+        
+        test2.execute(ceo);
     }
     catch (std::exception& e)
     {
