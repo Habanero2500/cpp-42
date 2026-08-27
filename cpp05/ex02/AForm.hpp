@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 18:45:34 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/26 19:00:41 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/27 19:08:16 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
+
 
 class Bureaucrat;
 
@@ -26,6 +28,10 @@ class AForm{
     bool _signed;
     const int _signer;
     const int _executer;
+
+    protected : 
+    
+    virtual void executeForm( void ) const = 0; //Pas d'implementation dans la case de base
     
     public :
 
@@ -45,6 +51,7 @@ class AForm{
     
     // Specific functions
     void beSigned(const Bureaucrat& signer);
+    virtual void	execute(Bureaucrat const& executor) const; //New function-member
 
     //Class 
     class GradeTooHighException : public std::exception
@@ -54,6 +61,16 @@ class AForm{
     };
 
     class GradeTooLowException : public std::exception
+    {
+        public:
+        virtual const char *what() const throw();
+    };
+    class UnsignedException : public std::exception
+    {
+        public:
+        virtual const char *what() const throw();
+    };
+    class GradeTooLowToExecuteException : public std::exception
     {
         public:
         virtual const char *what() const throw();

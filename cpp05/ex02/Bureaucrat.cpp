@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:45:59 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/26 19:07:14 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/27 21:25:54 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 Bureaucrat::Bureaucrat ( void ): _name("Default"), _grade(150)
 {
-    std::cout << "Bureaucrat default constructor is used" << std::endl;
 }
 
 Bureaucrat::Bureaucrat ( const std::string name ): _name(name), _grade(150)
 {
-    std::cout << "Bureaucrat classical constructor is used" << std::endl; 
 }
 
 Bureaucrat& Bureaucrat::operator=( const Bureaucrat& copy )
 {
-    std::cout << "Bureaucrat operator overload = is called" << std::endl; 
     if(this != &copy)
         _grade = copy._grade;
     return(*this);   
@@ -38,17 +35,14 @@ Bureaucrat::Bureaucrat (std::string name, int grade ) : _name( name )
         throw Bureaucrat::GradeTooLowException();
     else 
         _grade = grade;
-    std::cout << "Bureaucrat classical constructor is used" << std::endl; 
 }
 
 Bureaucrat::Bureaucrat ( const Bureaucrat& copy ) : _name(copy._name), _grade(copy._grade)
 {
-    std::cout <<"Bureaucrat copy constructor called" << std::endl;
 }
 
 Bureaucrat::~Bureaucrat()
 {
-    std::cout << "Bureaucrat destructor is called" << std::endl; 
 }
 
 

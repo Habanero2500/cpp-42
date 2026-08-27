@@ -15,19 +15,15 @@
 
 AForm::AForm( void ) : _name("Default"), _signed(0), _signer(150), _executer(150)
 {
-    std::cout << "AForm default constructor used" << std::endl;
 }
 AForm::AForm( std::string name ) : _name(name), _signed(0), _signer(150), _executer(150)
 {
-    std::cout << "AForm classical constructor used" << std::endl;
 }
 AForm::AForm( const AForm& copy) : _name(copy._name), _signed(copy._signed), _signer(copy._signer), _executer(copy._executer)
 {
-    std::cout << "AForm copy constructor used" << std::endl;
 }
 AForm& AForm::operator=(const AForm& copy)
 {
-    std::cout << "AForm overload operator used" << std::endl;
     if(this != &copy)
         _signed = copy._signed;
     return *this;
@@ -35,7 +31,6 @@ AForm& AForm::operator=(const AForm& copy)
 
 AForm::~AForm( void )
 {
-    std::cout << "AForm default destructor used" << std::endl;
 }
 AForm::AForm(std::string name, bool signos, int sign, int exec) : _name(name), _signed(signos), _signer(sign), _executer(exec)
 {
@@ -43,9 +38,6 @@ AForm::AForm(std::string name, bool signos, int sign, int exec) : _name(name), _
         throw AForm::GradeTooHighException();
     else if ( sign > 150 || exec > 150 )
         throw AForm::GradeTooLowException();
-    else
-        std::cout << "AForm classical constructor used" << std::endl;
-
 }
 
 std::string AForm::getName( void ) const
@@ -89,10 +81,27 @@ void AForm::beSigned(const Bureaucrat& signer)
 
 const char *AForm::GradeTooHighException::what() const throw()
 {
-    return "AForm signer cannot be superior to 1.";
+    return "Form signer cannot be superior to 1.";
 }
 
 const char *AForm::GradeTooLowException::what() const throw()
 {
-    return "AForm signer cannot be inferior to 150.";
+    return "Form signer cannot be inferior to 150.";
+}
+const char *AForm::UnsignedException::what() const throw()
+{
+    return "Form signer cannot execute because the form is not signed.";
+}
+
+const char *AForm::GradeTooLowToExecuteException::what() const throw()
+{
+    return "Form signer cannot execute because his grade is too low.";
+}
+void AForm::execute(Bureaucrat const & executor) const
+{
+    if(_signed == false)
+        throw AForm::UnsignedException();
+    if(executor.getGrade() > _executer)
+        throw AForm::GradeTooLowToExecuteException();
+    executeForm();
 }

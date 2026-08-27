@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 16:16:46 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/27 00:13:54 by user             ###   ########.fr       */
+/*   Updated: 2026/08/27 22:10:52 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ShrubberyCreationForm.hpp"
 
-ShruberryCreationForm::ShruberryCreationForm( void ) : AForm("Default_SCF", 0, 145, 137) 
+ShrubberyCreationForm::ShrubberyCreationForm( void ) : AForm("Default_SCF", 0, 145, 137), _target ("Default_SCF")
 {
-    std::cout << "Default Constructor for SCF used" << std::endl;
 }
 
-ShruberryCreationForm& ShruberryCreationForm::operator=( const ShruberryCreationForm& copy)
+ShrubberyCreationForm& ShrubberyCreationForm::operator=( const ShrubberyCreationForm& copy)
 {
-    std::cout << "Overload operator = used for ShrubberyCreationForm" << std::endl; 
     if(this != &copy)
     {
         _target = copy.getTarget();
@@ -27,26 +25,23 @@ ShruberryCreationForm& ShruberryCreationForm::operator=( const ShruberryCreation
     return (*this);
 }
 
-ShruberryCreationForm::ShruberryCreationForm( const ShruberryCreationForm& copy) : AForm(copy)
+ShrubberyCreationForm::ShrubberyCreationForm( const ShrubberyCreationForm& copy) : AForm(copy)
 {
-    std::cout << "Copy destructor for ShrubberyCreationForm" << std::endl; 
     _target = copy.getTarget();
 }
-ShruberryCreationForm::~ShruberryCreationForm( void )
+ShrubberyCreationForm::~ShrubberyCreationForm( void )
 {
-    std::cout << "Default destructor for ShrubberyCreationForm" << std::endl; 
 }
-ShruberryCreationForm::ShruberryCreationForm( std::string name ) : AForm(name, 0, 145, 137) 
+ShrubberyCreationForm::ShrubberyCreationForm( std::string name ) : AForm("ShrubberyCreationForm", 0, 145, 137), _target(name) 
 {
-    std::cout << "Classical SCF constructor used" << std::endl;
 }
 
-std::string const&	ShruberryCreationForm::getTarget( void ) const
+std::string const&	ShrubberyCreationForm::getTarget( void ) const
 {
     return (_target);
 }
 
-void	ShruberryCreationForm::execute(void) const
+void	ShrubberyCreationForm::executeForm( void ) const
 {
     if(this->AForm::getSigned())
     {
@@ -55,26 +50,22 @@ void	ShruberryCreationForm::execute(void) const
         std::ofstream file((name.c_str()));
         if (file.is_open())
         {
-            std::cout << "          ⭐ " << std::endl;           
-            std::cout << "          /\\ " << std::endl;
-            std::cout << "         / o\\ " << std::endl;  
-            std::cout << "        /o   \\ " << std::endl;
-            std::cout << "        /   o\\ " << std::endl;
-            std::cout << "       /o o   \\  " << std::endl;
-            std::cout << "      /     o  \\ " << std::endl;
-            std::cout << "      /  o    o\\ " << std::endl;
-            std::cout << "     / o    o   \\ " << std::endl;
-            std::cout << "    /     o  o   \\ " << std::endl;
-            std::cout << "    /o  o   o   o\\ " << std::endl;
-            std::cout << "         |   |      " << std::endl;
-            std::cout << "         |   |      " << std::endl;
+            file << "          ⭐ " << std::endl;           
+            file << "          /\\ " << std::endl;
+            file << "         / o\\ " << std::endl;  
+            file << "        /o   \\ " << std::endl;
+            file << "        /   o\\ " << std::endl;
+            file << "       /o o   \\  " << std::endl;
+            file << "      /     o  \\ " << std::endl;
+            file << "      /  o    o\\ " << std::endl;
+            file << "     / o    o   \\ " << std::endl;
+            file << "    /     o  o   \\ " << std::endl;
+            file << "    /o  o   o   o\\ " << std::endl;
+            file << "         |   |      " << std::endl;
+            file << "         |   |      " << std::endl;
             file.close();
         }
         else
             std::cout << "Error while opening the file !" << std::endl;
     }
-        
-    
-    
-
 }
