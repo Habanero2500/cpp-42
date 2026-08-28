@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:37:13 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/26 19:08:18 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/28 14:44:17 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ class Bureaucrat{
     void upGrade( void );
     void downGrade( void );
     void signForm( AForm& form );
+
+    //Add of the exercise 
+    void executeForm(AForm const & form) const;
 
     class GradeTooHighException : public std::exception
     {

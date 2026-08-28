@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 17:45:59 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/27 21:25:54 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/28 15:15:33 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,3 +106,18 @@ void Bureaucrat::signForm( AForm& form )
         std::cout << _name << " cannot sign, grade " << form.getSignerGrade() << " required." << std::endl;
     }
 }
+void Bureaucrat::executeForm(AForm const & form) const
+{
+    //Erreur de Form pas signe
+    try
+    {
+        form.execute(*this);
+        std::cout << _name << " executed " << form.getName() << std::endl;
+
+    }
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+}
+

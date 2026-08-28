@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 13:07:24 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/27 22:32:32 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/28 15:16:17 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,44 @@
 int main ( void )
 {
     Bureaucrat intern("intern", 150);
-    Bureaucrat junior("junior", 145);
-    Bureaucrat senior("senior", 72);
-    Bureaucrat manager("manager", 25);
-    Bureaucrat ceo("CEO", 1);
+    Bureaucrat junior("junior", 137);
+    Bureaucrat senior("senior", 45);
+    Bureaucrat manager("manager", 5);
+
+    PresidentialPardonForm test3("Test3");
     
+    std::cout << std::endl << "** TEST CONCERNING EXECUTING FORM BY THE BUREAUCRAT MEMBER **" << std::endl;
+    
+    std::cout << std::endl << "** TEST WITH AN UNSIGNED PPF**" << std::endl << std::endl;
+    try
+    {
+        std::cout << test3;
+        manager.executeForm(test3);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    manager.signForm(test3);
+    
+    std::cout << std::endl << "** TEST WITH A SIGNED SCF BUT A TOO LOW GRADE **" << std::endl << std::endl;
+    try
+    {
+        junior.executeForm(test3);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    std::cout << std::endl << "** TEST WITH A SIGNED SCF WITH SUFFICIENT GRADE **" << std::endl << std::endl;    
+    try
+    {
+        manager.executeForm(test3);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
     ShrubberyCreationForm test2("test2");
     std::cout << test2;
     RobotomyRequestForm test1("test1");
@@ -31,8 +64,8 @@ int main ( void )
     PresidentialPardonForm test("test");
     std::cout << test;
 
+    std::cout << std::endl << "** TEST CONCERNING SHRUBERRYCREATIONFORM **" << std::endl << std::endl;
 
-    
     std::cout << std::endl << "** TEST WITH AN UNSIGNED SCF**" << std::endl << std::endl;
     try
     {
@@ -59,22 +92,84 @@ int main ( void )
     try
     {
         
-        test2.execute(ceo);
+        test2.execute(junior);
     }
     catch (std::exception& e)
     {
         std::cout << e.what() << std::endl;
     }
+    /////////////////////////////////////////////////////////////////////////////////
 
+    std::cout << std::endl << "** TEST CONCERNING ROBOTOMYREQUESTFORM **" << std::endl << std::endl;
+
+    std::cout << std::endl << "** TEST WITH AN UNSIGNED RRF**" << std::endl << std::endl;
+    try
+    {
+        std::cout << test1;
+        test1.execute(senior);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    senior.signForm(test1);
     
-    // try
-    // {
-    //     test.execute(low);
-    // }
-    // catch (std::exception& e)
-    // {
-    //     std::cout << e.what() << std::endl;
-    // }
+    std::cout << std::endl << "** TEST WITH A SIGNED SCF BUT A TOO LOW GRADE **" << std::endl << std::endl;
+    try
+    {
+        test1.execute(junior);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    
+    std::cout << std::endl << "** TEST WITH A SIGNED SCF WITH SUFFICIENT GRADE **" << std::endl << std::endl;    
+    try
+    {
+        
+        test1.execute(senior);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    /////////////////////////////////////////////////////////////////////////////////
+
+    std::cout << std::endl << "** TEST CONCERNING PRESIDENTIALPARDONFORM **" << std::endl << std::endl;
+
+    std::cout << std::endl << "** TEST WITH AN UNSIGNED PPF**" << std::endl << std::endl;
+    try
+    {
+        std::cout << test;
+        test.execute(senior);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    manager.signForm(test);
+    
+    std::cout << std::endl << "** TEST WITH A SIGNED PPF BUT A TOO LOW GRADE **" << std::endl << std::endl;
+    try
+    {
+        test.execute(senior);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    
+    std::cout << std::endl << "** TEST WITH A SIGNED PPF WITH SUFFICIENT GRADE **" << std::endl << std::endl;    
+    try 
+    {   
+        test.execute(manager);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    
 }
 // int main( void )
 // {

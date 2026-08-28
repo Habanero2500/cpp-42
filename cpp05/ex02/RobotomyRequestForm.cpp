@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 16:16:46 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/27 22:05:04 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/28 14:17:50 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ std::string const&	RobotomyRequestForm::getTarget( void ) const
 
 void	RobotomyRequestForm::executeForm(void) const
 {
+    std::srand(std::time(NULL)); // Definit une seed (un index) sur lequel sera clcule le rand.
     if(this->AForm::getSigned())
     {
         std::cout << "Brrrrrr brrr brrrrrrr" << std::endl;
-         if(std::rand() % 2 == 0)
+        if(std::rand() % 2 == 0) // Le rand qui varie au lieu de donner tout le temps la meme valeur.
             std::cout << _target << " has been robotomized successfully !" << std::endl;
         else 
             std::cout << "Unfortunately, the robotomy failed..." << std::endl;

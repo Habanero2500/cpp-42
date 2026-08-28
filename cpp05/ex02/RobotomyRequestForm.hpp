@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 16:16:21 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/27 18:20:25 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/28 14:14:00 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include "AForm.hpp"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 class RobotomyRequestForm : virtual public AForm 
 {

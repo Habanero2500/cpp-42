@@ -46,6 +46,6 @@ void	PresidentialPardonForm::executeForm(void) const
 {
     if(this->AForm::getSigned())
     {
-        std::cout << _target << " has benn pardoned by Zaphod Beeblebrox." << std::endl; 
+        std::cout << _target << " has been pardoned by Zaphod Beeblebrox." << std::endl; 
     }
 }

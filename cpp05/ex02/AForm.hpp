@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 18:45:34 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/27 19:08:16 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/28 14:11:44 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
-
+#include <ctime>
 
 class Bureaucrat;
 
