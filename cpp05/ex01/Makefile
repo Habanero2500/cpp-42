@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user <user@student.42.fr>                  +#+  +:+       +#+         #
+#    By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/18 17:17:29 by jmetayer          #+#    #+#              #
-#    Updated: 2026/08/20 15:08:33 by user             ###   ########.fr        #
+#    Updated: 2026/08/27 14:57:44 by jmetayer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = form
+NAME = bureaucrat
 SRCS = main.cpp Bureaucrat.cpp Form.cpp
 
 CC = c++ 

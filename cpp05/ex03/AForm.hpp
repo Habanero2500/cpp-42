@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 18:45:34 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/28 14:11:44 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/28 22:31:52 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ class AForm{
     AForm( std::string name );
     AForm( const AForm& copy);
     AForm& operator=(const AForm& copy);
-    ~AForm( void );
+    virtual ~AForm( void );
     AForm(std::string name, bool signos, int sign, int exec);
 
     //Getters and setters
