@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 16:59:47 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/31 18:15:26 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/08/31 18:35:18 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,22 @@ bool isChar(const std::string &str)
 }
 bool isInt (const std::string &str)
 {
-    int i(0);
+    double i(0);
     if(str[i] == '-' || str[i] == '+')
+    {
+        if(str[i] == '-')
+            i *= -1;
         i++;
+    }
     while(str[i])
     {
         if( str[i] < '0' || str[i] > '9')
             return false;
+        i = i * 10 + (str[i] - '0');
     }
-    return true;
+    if(i <= INT_MAX || i >= INT_MIN)
+        return true;
+    return false;
 }
 
 int main( void )
@@ -38,8 +45,6 @@ int main( void )
     std::cin >> str;
     std::cout << "Is char : " << isChar(str) << std::endl;
     std::cout << "Is int : " << isChar(str) << std::endl;
-
-    
 }
 
 // bool isFloat(const std::string &str)
