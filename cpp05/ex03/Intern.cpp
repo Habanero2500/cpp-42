@@ -19,9 +19,8 @@ Intern::Intern( void )
 {
 }
 
-Intern& Intern::operator= ( const Intern& copy )
+Intern& Intern::operator= ( const Intern& )
 {
-    (void)copy;
     return (*this);
 }
 
