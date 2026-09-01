@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 16:59:53 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/08/31 18:18:18 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/09/01 13:31:03 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 class ScalarConverter {
     
+
+    
     private :
     ScalarConverter( void );
     ScalarConverter& operator=( const ScalarConverter& copy );
@@ -26,12 +28,20 @@ class ScalarConverter {
     ~ScalarConverter( void );
     
     public :
-    static void convert( std::string str );
+    static void convert( const std::string& str );
 
 };
 
-bool isChar(const std::string &str);
-bool isInt (const std::string &str);
+    enum e_type{
+        INT,
+        CHAR, 
+        DOUBLE, 
+        FLOAT,
+        NONE, 
+    };
+
+
+
 
 
 #endif
