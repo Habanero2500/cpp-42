@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 16:59:47 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/09/03 17:27:19 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/09/03 17:33:40 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,14 +121,19 @@ static void convertInt( const std::string &str )
     std::cout << "Float conversion : " << res << ".0f" << std::endl;
     std::cout << "Double conversion : " << res << ".0" << std::endl;
 }
-// static void convertChar( const std::string &str )
-// {
+static void convertChar( const std::string &str )
+{
+    char c(str[0]);
+    std::cout << "Char (original format)" << c << std::endl;
+    int val(c);
+    std::cout << "Int conversion : " << val << std::endl;
+    std::cout << "Float conversion : " << val << ".0f" << std::endl;
+    std::cout << "Double conversion : " << val << ".0" << std::endl;
+}
+static void convertFloat( const std::string &str )
+{
     
-// }
-// static void convertFloat( const std::string &str )
-// {
-    
-// }
+}
 // static void convertDouble( const std::string &str )
 // {
     
@@ -143,8 +148,8 @@ void ScalarConverter::convert( const std::string &str )
     e_type type = whichType(str);
     if(type == INT)
         convertInt(str); 
-    // else if(type == CHAR)
-    //     convertChar(str);
+    else if(type == CHAR)
+        convertChar(str);
     // else if(type == DOUBLE)
     //     convertDouble(str);
     // else if(type == FLOAT)
