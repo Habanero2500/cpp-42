@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 16:59:47 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/09/03 17:33:40 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/09/04 12:25:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,40 +108,55 @@ static e_type whichType( const std::string &str )
         return NONE;
 }
 
-static void convertInt( const std::string &str )
+static void printAll( const char c, const int i, const float f, const double d)
 {
-    int res = std::atoi(str.c_str());
-    // Convert to char
-    if (res >= 32 && res <= 126)
-    {
-        char c(res);
-        std::cout << "Char conversion : " << c << std::endl;
-    }
-    std::cout << "Int (original format) : " << res << std::endl;
-    std::cout << "Float conversion : " << res << ".0f" << std::endl;
-    std::cout << "Double conversion : " << res << ".0" << std::endl;
+    std::cout << "Char : ";
+    if (c >= 32 && c <= 126)
+        std::cout << c << std::endl;
+    else 
+        std::cout << "Impossible." << std::endl;
+    std::cout << "Int : " << i << std::endl;
+    std::cout << "Float : " << f << "f" << std::endl;
+    std::cout << "Double : " << d << std::endl;
 }
+
 static void convertChar( const std::string &str )
 {
     char c(str[0]);
-    std::cout << "Char (original format)" << c << std::endl;
-    int val(c);
-    std::cout << "Int conversion : " << val << std::endl;
-    std::cout << "Float conversion : " << val << ".0f" << std::endl;
-    std::cout << "Double conversion : " << val << ".0" << std::endl;
+    int i(c);    
+    float f = static_cast<float>(i);
+    double d = static_cast<double>(i);
+    printAll(c, i, f, d);
 }
-static void convertFloat( const std::string &str )
+static void convertInt( const std::string &str )
 {
-    
+    int i = std::atoi(str.c_str());    
+    float f = static_cast<float>(i);
+    double d = static_cast<double>(i);
+    printAll(i, i, f, d);
 }
-// static void convertDouble( const std::string &str )
-// {
-    
-// }
-// static void convertNone( void )
-// {
-    
-// }
+static void convertFloat (const std::string &str )
+{
+    float f = std::stof(str);
+    double d = static_cast<double>(f);
+    int i = static_cast<int>(f);
+    printAll(i, i, f, d);
+}
+static void convertDouble (const std::string &str )
+{
+    double d = std::stod(str);
+    float f = static_cast<double>(d);
+    int i = static_cast<int>(d);
+    printAll(i, i, f, d);
+}
+
+static void convertNone( void )
+{
+    std::cout << "Char : Impossible" << std::endl;
+    std::cout << "Int : Impossible" << std::endl;
+    std::cout << "Float : Impossible" << std::endl;
+    std::cout << "Double : Impossible" << std::endl;
+}
 
 void ScalarConverter::convert( const std::string &str )
 {
@@ -150,10 +165,10 @@ void ScalarConverter::convert( const std::string &str )
         convertInt(str); 
     else if(type == CHAR)
         convertChar(str);
-    // else if(type == DOUBLE)
-    //     convertDouble(str);
-    // else if(type == FLOAT)
-    //     convertFloat(str);
-    // else
-    //     convertNone( void );
+    else if(type == DOUBLE)
+        convertDouble(str);
+    else if(type == FLOAT)
+        convertFloat(str);
+    else
+        convertNone();
 }
