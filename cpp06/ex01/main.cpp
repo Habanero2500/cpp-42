@@ -5,9 +5,6 @@ int main ()
 {
     Data test;
 
-    test.number = 10;
-    test.name = "Ludovic";
-
     Data *ptr = &test;
     uintptr_t cast_to_uint = Serializer::serialize(ptr);
     std::cout << "Cast en uint :" << cast_to_uint << std::endl; 
