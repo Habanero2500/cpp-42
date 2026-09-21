@@ -6,12 +6,12 @@
 #    By: user <user@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/18 17:17:29 by jmetayer          #+#    #+#              #
-#    Updated: 2026/08/29 16:28:34 by user             ###   ########.fr        #
+#    Updated: 2026/09/21 01:13:53 by user             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = scalar
-SRCS = main.cpp ScalarConverter.cpp
+NAME = serialize
+SRCS = main.cpp Serializer.cpp
 
 CC = c++ 
 FLAGS = -Wall -Werror -Wextra -std=c++98
