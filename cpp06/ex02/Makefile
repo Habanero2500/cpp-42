@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user <user@student.42.fr>                  +#+  +:+       +#+         #
+#    By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/18 17:17:29 by jmetayer          #+#    #+#              #
-#    Updated: 2026/09/21 14:54:24 by user             ###   ########.fr        #
+#    Updated: 2026/09/22 17:26:43 by jmetayer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = serialize
-SRCS = main.cpp Base.cpp
+NAME = identify
+SRCS = main.cpp
 
 CC = c++ 
 FLAGS = -Wall -Werror -Wextra -std=c++98
