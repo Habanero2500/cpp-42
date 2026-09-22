@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 16:59:53 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/09/03 17:20:02 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/09/22 17:38:23 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 #include <cstdlib>
 
 class ScalarConverter {
-    
-
     
     private :
     ScalarConverter( void );
@@ -40,9 +38,5 @@ class ScalarConverter {
         FLOAT,
         NONE, 
     };
-
-
-
-
 
 #endif

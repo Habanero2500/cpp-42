@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 16:59:47 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/09/04 12:25:16 by user             ###   ########.fr       */
+/*   Updated: 2026/09/22 18:51:16 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,15 +137,16 @@ static void convertInt( const std::string &str )
 }
 static void convertFloat (const std::string &str )
 {
-    float f = std::stof(str);
+    float f = std::strtof(str.c_str(), NULL);
     double d = static_cast<double>(f);
     int i = static_cast<int>(f);
     printAll(i, i, f, d);
 }
+
 static void convertDouble (const std::string &str )
 {
-    double d = std::stod(str);
-    float f = static_cast<double>(d);
+    double d = std::strtod(str.c_str(), NULL);
+    float f = static_cast<float>(d);
     int i = static_cast<int>(d);
     printAll(i, i, f, d);
 }
