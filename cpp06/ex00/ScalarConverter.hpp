@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 16:59:53 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/09/22 17:38:23 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/09/23 14:06:05 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <string>
 #include <climits>
 #include <cstdlib>
+#include <cfloat>
+#include <iomanip>
 
 class ScalarConverter {
     
