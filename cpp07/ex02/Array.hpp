@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/24 18:28:02 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/09/28 18:33:49 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/09/28 19:13:29 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 #define ARRAY_HPP
 
 #include <exception>
+#include <ctime>
 #include <iostream>
+#include <cstdlib>
 
 template <typename T>
 class Array {

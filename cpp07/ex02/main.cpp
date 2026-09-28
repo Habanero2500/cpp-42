@@ -18,14 +18,14 @@ int main( void )
     std::cout << "Size of Array c : " << c.size() << " and value in the array : ";
     c.printArray();
 
-
     try
     {
         c[4] = 5;
     }
     catch (std::exception& e)
+    {
         std::cout << e.what() << std::endl;
-    
+    }
     
     
     std::cout << std::endl;
@@ -40,9 +40,16 @@ int main( void )
     Array<std::string> e(d); //Copy constructor 
     Array<std::string> f = e; //Overload operator= 
 
-    std::cout << "Size of Array f : " << c.size() << " and values in the array : ";
-    c.printArray();
-
-
-
+    std::cout << "Size of Array f : " << e.size() << " and values in the array : ";
+    e.printArray();
+        
+    try
+    {
+        e[4] = "test";
+    }
+    catch (std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    
 }

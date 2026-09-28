@@ -1,6 +1,5 @@
 #include "iter.hpp"
 
-
 void addone(int &value)
 {
     value++;
