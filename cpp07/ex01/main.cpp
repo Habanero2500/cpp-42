@@ -36,11 +36,21 @@ int main ( void )
 
     ///////////////////////////////////////////////////////////////////////////////////
     
-    std::cout << std::endl << "**** TEST WITH A DOUBLE ARRAY ( X2 ) ****" << std::endl;
+    std::cout << std::endl << "**** TEST WITH A STRING ARRAY (UPPERCASE) ****" << std::endl;
     std::string c[6] = {"test", "to", "know", "if", "it's" " workin"};
     printNode(c, 6);
     iter(c, 6, maj);
     printNode(c, 6);
     
+    ///////////////////////////////////////////////////////////////////////////////////
+    
+    std::cout << std::endl << "**** TEST WITH A CONST INT ****" << std::endl;
+    const int d[5] = {1, 2, 3, 4, 5};
+    iter(d, 5, printOne<const int>); // Instanciation explicite oblige car on utilise un template pour l'arg F. 
+    std::cout << std::endl;
+
     return 0 ;
 }
+
+
+

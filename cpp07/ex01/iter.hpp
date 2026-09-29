@@ -19,6 +19,11 @@ void printNode(T *array, unsigned int length)
         std::cout << array[i] << " ";
     std::cout << std::endl;
 }
+template < typename T > 
+void printOne(T& print) 
+{
+    std::cout << print << " ";
+}
 
 
 #endif
