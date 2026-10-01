@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 17:19:49 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/09/30 17:38:12 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/01 18:29:19 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 #include <iostream> 
 #include <vector>
+#include <algorithm>
+#include <stdexcept>
+#include <climits>
 
 using std::cout;
 using std::endl;
@@ -33,12 +36,41 @@ class Span{
     Span& operator=( const Span& copy );
     ~Span ( void );
 
-    Span( unsigned int i ) : _max(i) {}; 
+    Span( unsigned int i );
     
+    class IndexOutOfBonds : std::exception{
+        public : 
+        virtual const char *what() const throw()
+        {
+            return "Index out of Bonds";    
+        }
+    };
+
+    class SpanTooShort : std::exception
+    {
+        public : 
+        virtual const char *what() const throw()
+        {
+            return "Vector too short to calculate any span";    
+        }
+    };
+
+    class ContainerTooSmall : std::exception
+    {
+        public : 
+        virtual const char *what() const throw()
+        {
+            return "Containers can not have an empty size or have a size 1.";    
+        }
+    };
+    
+    void tryToPush( int i );
     void addNumber ( int i );
-    void shortestSpan( int i );
-    void longestSpan( int i );
-    void displaySpan( int i );
+    long long shortestSpan( void );
+    long long longestSpan( void  );
+    void displaySpan( void );
+    void checkNumbers( void );
+    
     
 };
 
