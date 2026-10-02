@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 17:19:46 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/01 18:29:54 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/02 17:49:57 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,13 @@ void Span::addNumber(int i)
         throw IndexOutOfBonds();
 }
 
-
+void Span::addRange(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+{
+    size_t n = static_cast<size_t>(std::distance(begin, end));
+    if (_v.size() + n > _max)
+        throw IndexOutOfBonds();
+    _v.insert(_v.end(), begin, end);
+}
 
 long long Span::shortestSpan(void)
 {

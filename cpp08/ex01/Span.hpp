@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 17:19:49 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/01 18:29:19 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/02 17:38:55 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ class Span{
 
     Span( unsigned int i );
     
-    class IndexOutOfBonds : std::exception{
+    class IndexOutOfBonds : public std::exception{
         public : 
         virtual const char *what() const throw()
         {
@@ -46,7 +46,7 @@ class Span{
         }
     };
 
-    class SpanTooShort : std::exception
+    class SpanTooShort : public std::exception
     {
         public : 
         virtual const char *what() const throw()
@@ -55,7 +55,7 @@ class Span{
         }
     };
 
-    class ContainerTooSmall : std::exception
+    class ContainerTooSmall : public std::exception
     {
         public : 
         virtual const char *what() const throw()
@@ -66,14 +66,14 @@ class Span{
     
     void tryToPush( int i );
     void addNumber ( int i );
+
+    void addRange ( std::vector<int>::iterator begin, std::vector<int>::iterator end );
+    
     long long shortestSpan( void );
     long long longestSpan( void  );
     void displaySpan( void );
     void checkNumbers( void );
-    
-    
+
 };
-
-
 
 #endif 

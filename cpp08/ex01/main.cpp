@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/01 14:14:13 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/01 18:27:48 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/02 17:34:49 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int main()
     test1.addNumber(INT_MAX);
     std::cout << test1.shortestSpan() << std::endl;
     std::cout << test1.longestSpan() << std::endl;
-    ////////////////////////////////////////////////////////////////////
-    std::cout << "- Exception with empty span" << std::endl;
+    ///////////////////////////////////////////////////////////////////
+    std::cout << "- Exception with empty vector" << std::endl;
+    
     Span test3(100);
-
     try
     {
         std::cout << test3.shortestSpan() << std::endl;
@@ -46,8 +46,9 @@ int main()
     catch (std::exception& e)
     {
         std::cerr << e.what() << std::endl;
-    }
+    } 
     ////////////////////////////////////////////////////////////////////
+    
     std::cout << "- Exception with size 1" << std::endl;
 
     try
@@ -59,8 +60,50 @@ int main()
         std::cerr << e.what() << std::endl;
     }
     
-
-
+    ////////////////////////////////////////////////////////////////
+    std::cout << "- Exception with too many numbers for the vectors size" << std::endl;
     
+    Span test4(10);
+    try
+    {
+        for(int i(0) ; i < 15 ; i++)
+            test4.addNumber(i); 
+    }
+    catch(std::exception& e)
+    {
+        std::cerr << e.what() << std::endl; 
+    }
+
+    ////////////////////////////////////////////////////////////////
+    std::cout << "- AddNumber test for several numbers" << std::endl;
+
+    std::vector<int> src;
+    for(int i(3); i < 10; i++)
+        src.push_back(i);
+
+    try
+    {
+        Span test6(10);
+        test6.addRange(src.begin(), src.end());
+        test6.displaySpan(); 
+    }
+    catch(std::exception& e)
+    {
+        std::cerr << e.what() << std::endl; 
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    std::cout << "- AddNumber test for too many numbers" << std::endl;
+
+    try
+    {
+        Span test8(5);
+        test8.addRange(src.begin(), src.end());
+        test8.displaySpan(); 
+    }
+    catch(std::exception& e)
+    {
+        std::cerr << e.what() << std::endl; 
+    }
+   
     return 0;
 }
