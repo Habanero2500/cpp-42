@@ -6,12 +6,12 @@
 #    By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/18 17:17:29 by jmetayer          #+#    #+#              #
-#    Updated: 2026/10/01 14:55:16 by jmetayer         ###   ########.fr        #
+#    Updated: 2026/10/03 16:49:10 by jmetayer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = span
-SRCS = main.cpp Span.cpp
+NAME = mutant
+SRCS = main.cpp
 
 CC = c++ 
 FLAGS = -Wall -Werror -Wextra -std=c++98

@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 17:19:49 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/02 17:38:55 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/03 12:42:23 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ class Span{
             return "Vector too short to calculate any span";    
         }
     };
-
+    
     class ContainerTooSmall : public std::exception
     {
         public : 
@@ -63,6 +63,8 @@ class Span{
             return "Containers can not have an empty size or have a size 1.";    
         }
     };
+
+    
     
     void tryToPush( int i );
     void addNumber ( int i );
