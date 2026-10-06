@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 12:03:30 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/06 16:30:53 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/06 19:27:50 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@
 #include <cstdlib>
 
 class BitcoinExchange{
-    
-private :
-    
-    std::map<std::string, float> _chain;
 
 public :
+
+    enum Month {
+        
+        LONGMONTH,
+        SHORTMONTH,
+        FEBRAURY,
+    };
 
 
     class DataBaseException : public std::exception
@@ -61,8 +64,22 @@ public :
     void displayDataBase( void );
     
     bool checkInput( std::ifstream &in );
-    bool displayInput( void );
+    void displayInput( std::ifstream &in );
+    std::string parseDate( std::string raw);
+    std::string checkYear(std::string year);
+    std::string checkMonth( std::string month);
+    std::string checkDay( std::string year, std::string month, std::string day );
+    void leapYear(std::string year);
+
+    private :
     
+    std::map<std::string, float> _chain;
+    bool _leap;
+    Month _month;
+    
+    
+    
+
 
 };
 
