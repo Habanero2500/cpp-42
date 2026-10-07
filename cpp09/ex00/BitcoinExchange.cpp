@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:39:33 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/06 19:27:41 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/07 14:10:39 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ bool BitcoinExchange::loadDataBase( void )
 }
 void BitcoinExchange::leapYear(std::string year)
 {
-    //2008 2012 2016 2020
     if(year == "2008" || year == "2012" || year == "2016" || year == "2020")
     {
         this->_leap = true;
@@ -62,7 +61,7 @@ void BitcoinExchange::leapYear(std::string year)
 }
 std::string BitcoinExchange::checkYear( std::string year)
 {
-        if (year.size() != 4)
+    if (year.size() != 4)
         return "Impossible to display";
 
     for (int i = 0; i < 4; ++i)
@@ -70,16 +69,13 @@ std::string BitcoinExchange::checkYear( std::string year)
         if (year[i] < '0' || year[i] > '9')
             return "Impossible to display";
     }
-
     int y = std::atoi(year.c_str());
 
     if (y < 2009 || y > 2022)
         return "Impossible to display";
 
     leapYear(year);
-
     return year;
-    
 }
 std::string BitcoinExchange::checkMonth( std::string month)
 {
@@ -99,7 +95,7 @@ std::string BitcoinExchange::checkMonth( std::string month)
 }
 std::string BitcoinExchange::checkDay( std::string year, std::string month, std::string day)
 {
-       if (day.size() != 2)
+    if (day.size() != 2)
         return "Impossible to display";
 
     if (day[0] < '0' || day[0] > '9' ||
@@ -110,11 +106,11 @@ std::string BitcoinExchange::checkDay( std::string year, std::string month, std:
     int m = std::atoi(month.c_str());
     int y = std::atoi(year.c_str());
 
-    int maxDay;
+    int maxDay(0);
 
     if (m == 2)
     {
-        if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0)
+        if (_leap == true)
             maxDay = 29;
         else
             maxDay = 28;
@@ -123,31 +119,23 @@ std::string BitcoinExchange::checkDay( std::string year, std::string month, std:
         maxDay = 30;
     else
         maxDay = 31;
-
     if (d < 1 || d > maxDay)
         return "Impossible to display";
-
     return day; 
 }
 
 std::string BitcoinExchange::parseDate(std::string raw)
-{
-    //Lignes en trop au debut ? 
-    //parsing de la date : 
-    //Vide au debut ou annee directement 2013 a 2022
-    //Tiret 
-    //atoi() 1 a 12
-    //Tiret
-    //01 a 31
-    if (raw.size() != 10)
+{        
+    if (raw.size() != 11)
         return "Impossible to display";
-
-    if (raw[4] != '-' || raw[7] != '-')
+    
+    if(raw[4] != '-' || raw[7] != '-' || raw[10] != ' ')
         return "Impossible to display";
 
     std::string year = raw.substr(0, 4);
     std::string month = raw.substr(5, 2);
     std::string day = raw.substr(8, 2);
+
 
     if (checkYear(year) == "Impossible to display")
         return "Impossible to display";
@@ -168,9 +156,8 @@ void BitcoinExchange::displayInput( std::ifstream &in )
     while(std::getline(in, line))
     {
         std::string date = line.substr(0, line.find('|'));
-        std::cout << parseDate(date);
+        std::cout << parseDate(date) << std::endl;
     }
-    
 }
 bool BitcoinExchange::checkInput( std::ifstream& in )
 {

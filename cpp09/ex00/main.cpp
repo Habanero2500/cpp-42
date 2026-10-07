@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 12:05:35 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/06 16:32:56 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/07 13:33:09 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,15 @@
 
 int main ( int argc, char **argv)
 {
-    std::ifstream in(argv[1]);
-    if (argc != 2)
+    if(argc != 2)
     {
-        std::cerr << "One and only one rgument needed" << std::endl;
+        std::cerr << "One and only one argument needed" << std::endl;
         return 1;
     }
-
     try
     {
+        std::ifstream in(argv[1]);
         BitcoinExchange btc(in);
-        //Exception si les files sont vides
-        //Exception si le file ne s'ouvre pas
     }
     catch( std::exception& e) 
     {

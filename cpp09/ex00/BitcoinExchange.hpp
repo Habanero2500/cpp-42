@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 12:03:30 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/06 19:27:50 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/07 13:31:09 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,16 @@ public :
         public :
         virtual const char *what() const throw()
         {
-            return "Problem with opening or reading the input";
+            return "Problem occured while opening or reading the input.";
+        }
+    };
+
+        class WrongInputException : public std::exception
+    {
+        public :
+        virtual const char *what() const throw()
+        {
+            return "One and only one argument needed.";
         }
     };
 
@@ -57,6 +66,7 @@ public :
     // ~BitcoinExchange( void ){};
     
     BitcoinExchange( std::ifstream& in );
+    bool argTest( int argc );
     // void callEverything( int input );
     // std::string parse( void ); 
     // void display( void );
