@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:39:33 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/07 14:10:39 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/07 18:15:54 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,55 +59,56 @@ void BitcoinExchange::leapYear(std::string year)
     this->_leap = false;
     return;
 }
-std::string BitcoinExchange::checkYear( std::string year)
+bool BitcoinExchange::checkYear( std::string year)
 {
     if (year.size() != 4)
-        return "Impossible to display";
+        return false;
 
     for (int i = 0; i < 4; ++i)
     {
         if (year[i] < '0' || year[i] > '9')
-            return "Impossible to display";
+            return false;
     }
     int y = std::atoi(year.c_str());
 
     if (y < 2009 || y > 2022)
-        return "Impossible to display";
+        return false;
 
     leapYear(year);
-    return year;
+    return true;
 }
-std::string BitcoinExchange::checkMonth( std::string month)
+bool BitcoinExchange::checkMonth( std::string month)
 {
-        if (month.size() != 2)
-        return "Impossible to display";
+    if (month.size() != 2)
+        return false;
 
     if (month[0] < '0' || month[0] > '9' ||
         month[1] < '0' || month[1] > '9')
-        return "Impossible to display";
+        return false;
 
     int m = std::atoi(month.c_str());
 
     if (m < 1 || m > 12)
-        return "Impossible to display";
+        return false;
 
-    return month;   
+    return true;   
 }
-std::string BitcoinExchange::checkDay( std::string year, std::string month, std::string day)
+bool BitcoinExchange::checkDay( std::string year, std::string month, std::string day)
 {
     if (day.size() != 2)
-        return "Impossible to display";
+        return false;
 
     if (day[0] < '0' || day[0] > '9' ||
         day[1] < '0' || day[1] > '9')
-        return "Impossible to display";
+        return false;
 
     int d = std::atoi(day.c_str());
     int m = std::atoi(month.c_str());
     int y = std::atoi(year.c_str());
 
     int maxDay(0);
-
+    if(y < 2009 || y > 2022)
+        return "Impossible to display";
     if (m == 2)
     {
         if (_leap == true)
@@ -121,42 +122,103 @@ std::string BitcoinExchange::checkDay( std::string year, std::string month, std:
         maxDay = 31;
     if (d < 1 || d > maxDay)
         return "Impossible to display";
-    return day; 
+    return true; 
 }
 
-std::string BitcoinExchange::parseDate(std::string raw)
+bool BitcoinExchange::parseDate(std::string raw)
 {        
     if (raw.size() != 11)
-        return "Impossible to display";
+        return false;
     
     if(raw[4] != '-' || raw[7] != '-' || raw[10] != ' ')
-        return "Impossible to display";
+        return false;
 
     std::string year = raw.substr(0, 4);
     std::string month = raw.substr(5, 2);
     std::string day = raw.substr(8, 2);
 
+    if (checkYear(year) == false)
+        return false;
+    if (checkMonth(month) == false)
+        return false;
+    if (checkDay(year, month, day) == false)
+        return false;
 
-    if (checkYear(year) == "Impossible to display")
-        return "Impossible to display";
-
-    if (checkMonth(month) == "Impossible to display")
-        return "Impossible to display";
-
-    if (checkDay(year, month, day) == "Impossible to display")
-        return "Impossible to display";
-
-    return raw;
-
+    return true;
 }
+
+
+std::string BitcoinExchange::parseValue (std::string str)
+{
+    bool point = false;
+    
+    for(int i(0); str[i]; i++)
+    {
+        if((str[i] >= '0' || str[i] <= '9') && str[i] == '.' && str[i] == ' ')
+            return "Error: not a number";
+            
+        if(str[i] == '.')
+        {
+            if(point == false)
+                point = true;
+            else
+                return "Error: not a number";
+        }    
+    }
+    float val(strtof(str.c_str(), NULL));
+    if(val < 0)
+        return "Error: not a positive number.";
+    if(val > 1000)
+        return "Error: too large a number.";
+    return str;
+}
+
+bool BitcoinExchange::exactDate( std::string str)
+{
+    for(std::map<std::string, float>::iterator it = _chain.begin(); it != _chain.end() ; ++i)
+    {
+        
+    }
+}
+
+// Parsing parfait
+// Sauter la premiere ligne 
+// Renvoyer Error : bad input => date si erreur de date, ne pas envoyer le reste de la ligne
+// Renvoyer Error: et le type d'erreur si le nombre n'est pas bon.
+// Valeur finale si date et nombre sont bons conversion
 
 void BitcoinExchange::displayInput( std::ifstream &in )
 {
     std::string line;
+    bool value = false;
+    
     while(std::getline(in, line))
     {
         std::string date = line.substr(0, line.find('|'));
-        std::cout << parseDate(date) << std::endl;
+        bool resultDate = parseDate(date);
+        
+        if(resultDate == false) // date pas bonne
+        {
+            std::cout << "Error: bad input => " << line.substr(0, line.find('|') - 1) << std::endl;
+            continue;
+        }   
+        else // date bonne
+        {
+            std::string val = line.substr(line.find('|') + 1, line.size() - 12 );
+            if(parseValue(val) == val) // renvoie soit la valeur soit erreur
+                value = true;
+            else
+            {
+               std::cout << parseValue(val) << std::endl;
+               continue; 
+            }  
+        }
+        //Conversion
+        if(value == true)
+        {
+            std::string val = line.substr(line.find('|') + 1, line.size() - 12 );
+            std::cout << line.substr(0, 10) << " => " << strtof(val.c_str(), NULL) << std::endl;
+        }
     }
 }
 bool BitcoinExchange::checkInput( std::ifstream& in )
@@ -181,15 +243,3 @@ BitcoinExchange::BitcoinExchange( std::ifstream& in )
     
 }
 
-// void BitcoinExchange::callEverything( void )
-// {
-    
-// }
-// std::string BitcoinExchange::parse( void )
-// {
-    
-// } 
-// void BitcoinExchange::display( void )
-// {
-    
-// }
