@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 12:03:30 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/07 18:15:47 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/07 20:24:49 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,10 @@ public :
     
     //Conversion
     
-    bool exactDate( std::string str );
+    float exactDate( std::string str );
     
-    //renvoyer la valeur correspondante dans la db.
-    //Est-ce qu'il faut absolument renvoyer les memes codes d'erreurs ?
-    
+    //Bloquer si la date est avant le 2009-01-02
+    //
     
     //Exception 
     

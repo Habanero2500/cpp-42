@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:39:33 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/07 18:15:54 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/07 21:21:57 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,15 @@ bool BitcoinExchange::checkDay( std::string year, std::string month, std::string
 
     int maxDay(0);
     if(y < 2009 || y > 2022)
-        return "Impossible to display";
+        return false;
+    if(y == 2009 )
+    {
+        if(m == 1)
+        {
+            if (d < 2)
+                return false;
+        }    
+    }
     if (m == 2)
     {
         if (_leap == true)
@@ -121,7 +129,7 @@ bool BitcoinExchange::checkDay( std::string year, std::string month, std::string
     else
         maxDay = 31;
     if (d < 1 || d > maxDay)
-        return "Impossible to display";
+        return false;
     return true; 
 }
 
@@ -173,12 +181,16 @@ std::string BitcoinExchange::parseValue (std::string str)
     return str;
 }
 
-bool BitcoinExchange::exactDate( std::string str)
+float BitcoinExchange::exactDate(std::string str)
 {
-    for(std::map<std::string, float>::iterator it = _chain.begin(); it != _chain.end() ; ++i)
-    {
-        
-    }
+    std::map<std::string, float>::iterator it = _chain.lower_bound(str);
+
+    if (it != _chain.end() && it->first == str)
+        return it->second;
+    if (it == _chain.begin())
+        return 0;
+    --it;
+    return it->second;
 }
 
 // Parsing parfait
@@ -213,11 +225,12 @@ void BitcoinExchange::displayInput( std::ifstream &in )
                continue; 
             }  
         }
-        //Conversion
         if(value == true)
         {
             std::string val = line.substr(line.find('|') + 1, line.size() - 12 );
-            std::cout << line.substr(0, 10) << " => " << strtof(val.c_str(), NULL) << std::endl;
+            float valf = strtof(val.c_str(), NULL);
+            std::cout << line.substr(0, 10) << " => " << valf;
+            std::cout << " => " << valf * exactDate(line.substr(0, line.find('|'))) << std::endl;
         }
     }
 }
