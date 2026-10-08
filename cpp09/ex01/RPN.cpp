@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 13:29:41 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/08 15:59:40 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/08 16:21:47 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 
-void RPN::parseAndCompute( const char *str )
+int RPN::parseAndCompute( const char *str )
 {
     long long res(0);
     
@@ -31,7 +31,7 @@ void RPN::parseAndCompute( const char *str )
         {
             res = _stack.top();
             _stack.pop();
-            res -= _stack.top();
+            res = _stack.top() - res;
             _stack.pop();
             _stack.push(res);
         }
@@ -53,14 +53,17 @@ void RPN::parseAndCompute( const char *str )
         }
         if (str[i] == '/')
         {
+            if(_stack.top() == 0)
+                return 1;
             res = _stack.top();
             _stack.pop();
-            res /= _stack.top();
+            res = _stack.top() / res;
             _stack.pop();
             _stack.push(res);
         }
     }
-    std::cout << res << std::endl;    
+    std::cout << res << std::endl;
+    return 0;
 }
 
 
@@ -121,6 +124,8 @@ RPN::RPN( const char *str )
         throw NoSeparationException();
     if(check == 5)
         throw WrongCombinationException();
-    if(check == 0)
-        parseAndCompute(str);
+
+    
+    if(parseAndCompute(str) == 1)
+        throw DivisionException();
 }

@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 11:22:24 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/08 15:32:32 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/08 16:08:13 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@ class RPN{
 
     
     public : 
+
+    class DivisionException : public std::exception{
+
+    public : 
+    virtual const char *what() const throw()
+    {
+       return "Division by 0 is forbidden";
+    }
+    };
 
     class WrongCombinationException : public std::exception{
 
@@ -91,7 +100,7 @@ class RPN{
     
     //Parsing
     int checkElement( const char* str );
-    void parseAndCompute( const char *str );
+    int parseAndCompute( const char *str );
     
     
 };
