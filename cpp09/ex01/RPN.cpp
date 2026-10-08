@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 13:29:41 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/08 14:56:22 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/08 15:59:40 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,60 @@
 
 
 
-// std::stack<long long> RPN::parsing( const char* str)
-// {
+void RPN::parseAndCompute( const char *str )
+{
+    long long res(0);
     
-// }
+    for(int i(0); str[i] ; i++)
+    {
+        if(str[i] >= '0' && str[i] <= '9')
+        {
+            _stack.push(str[i] - '0');
+            continue;
+        }
+        else if(str[i] == ' ')
+            continue;
+        if (str[i] == '-')
+        {
+            res = _stack.top();
+            _stack.pop();
+            res -= _stack.top();
+            _stack.pop();
+            _stack.push(res);
+        }
+        if (str[i] == '+')
+        {
+            res = _stack.top();
+            _stack.pop();
+            res += _stack.top();
+            _stack.pop();
+            _stack.push(res);
+        }
+        if (str[i] == '*')
+        {
+            res = _stack.top();
+            _stack.pop();
+            res *= _stack.top();
+            _stack.pop();
+            _stack.push(res);
+        }
+        if (str[i] == '/')
+        {
+            res = _stack.top();
+            _stack.pop();
+            res /= _stack.top();
+            _stack.pop();
+            _stack.push(res);
+        }
+    }
+    std::cout << res << std::endl;    
+}
+
+
 int RPN::checkElement( const char *str )
 {
     int countElement(0);
-    int countOpertor(0);
+    int countOperator(0);
     bool inANumber(false);
     bool inAnOperator(false);
     
@@ -34,7 +80,7 @@ int RPN::checkElement( const char *str )
         {
             if(inAnOperator == true || inANumber == true)    
                 return 4;
-            countOpertor++;
+            countOperator++;
             inAnOperator = true;
         }
         if(str[i] == ' ')
@@ -49,10 +95,13 @@ int RPN::checkElement( const char *str )
             countElement++;
             inANumber = true;
         }
+        if(countOperator >= countElement)
+            return 5;
     }
-    if(countElement > countOpertor + 1)
+
+    if(countElement > countOperator + 1)
         return 2;
-    else if(countElement < countOpertor + 1)
+    else if(countElement < countOperator + 1)
         return 1;
     else
         return 0;
@@ -61,16 +110,17 @@ int RPN::checkElement( const char *str )
 RPN::RPN( const char *str )
 {
     int check(checkElement(str));
+    
     if(check == 1)
-        throw NotEnoughOperatorException();
-    if(check == 2)
         throw NotEnoughElementsException();
+    if(check == 2)
+        throw NotEnoughOperatorException();
     if(check == 3)
         throw WrongCharacterException();
     if(check == 4)
         throw NoSeparationException();
-    
-    // _stack = parsing(str);
-    
-    
+    if(check == 5)
+        throw WrongCombinationException();
+    if(check == 0)
+        parseAndCompute(str);
 }
