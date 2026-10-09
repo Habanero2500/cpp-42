@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:55 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/08 18:00:19 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/09 16:20:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ Quel container ?
 */
 int main (int argc, char **argv)
 {
-
+    if(argc != 2)
+    {
+        std::cerr << "One and only one argument needed" << std::endl;
+        return 1;
+    }
+    try
+    {
+        PmergeMe(argv[1]);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
     return 0;
 }
