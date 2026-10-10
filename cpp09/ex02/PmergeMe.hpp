@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:47 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/10 16:03:58 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/10 18:15:15 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ int parsing( const char* str );
 void displayVector( void );
 int checkValue( void );
 void displayList( void );
+void sortPairs(int left, int right);
+void mergePairs(int left, int mid, int right);
+void fillTheChain( void );
 
 
 class caracterException : public std::exception{

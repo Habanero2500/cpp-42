@@ -6,11 +6,50 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:50 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/10 16:05:00 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/10 18:53:30 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
+
+void PmergeMe::sortPairs(int left, int right)
+{
+    if (left >= right)
+        return;
+
+    int mid = left + (right - left) / 2;
+
+    sortPairs(left, mid);
+    sortPairs(mid + 1, right);
+
+    mergePairs(left, mid, right);
+}
+
+void PmergeMe::mergePairs(int left, int mid, int right)
+{
+    std::vector<std::pair<int, int> > temp;
+    int i = left;
+    int j = mid + 1;
+
+    while (i <= mid && j <= right)
+    {
+        if (_v[i].first <= _v[j].first)
+            temp.push_back(_v[i++]);
+        else
+            temp.push_back(_v[j++]);
+    }
+
+    while (i <= mid)
+        temp.push_back(_v[i++]);
+
+    while (j <= right)
+        temp.push_back(_v[j++]);
+
+    for (int k = 0; k < static_cast<int>(temp.size()); ++k)
+        _v[left + k] = temp[k];
+}
+
+
 
 int PmergeMe::checkValue(void)
 {
@@ -66,9 +105,9 @@ int PmergeMe::parsing(const char* str)
                     return 3;
                 int current = static_cast<int>(res);
                 if (value < current)
-                    _v.push_back(std::make_pair(value, current));
-                else
                     _v.push_back(std::make_pair(current, value));
+                else
+                    _v.push_back(std::make_pair(value, current));
                 first = false;
             }
             res = 0;
@@ -95,10 +134,20 @@ void PmergeMe::displayVector( void )
         std::cout << _straggler << std::endl;
 }
 
+void PmergeMe::fillTheChain( void )
+{
+    for(std::vector<std::pair< int, int> >::iterator iter = _v.begin() ; iter != _v.end() ; ++iter )
+    {
+        if(iter == _v.begin())
+            _mainChain.push_back(iter->second);
+        _mainChain.push_back(iter->first);
+    }   
+}
+
 void PmergeMe::displayList( void )
 {
-    for(std::list<int>::iterator it = _mainChain.begin() ; it != _mainChain.end() ; ++it)
-        std::cout << *it << " ";
+    for(std::list<int>::iterator it = _mainChain.begin() ; it != _mainChain.end() ; ++it )
+        std::cout << *it << std::endl;
 }
 
 PmergeMe::PmergeMe( const char* str ) : _straggler(0), _hasStraggler(false) 
@@ -110,8 +159,15 @@ PmergeMe::PmergeMe( const char* str ) : _straggler(0), _hasStraggler(false)
         throw maxException();
     if(parse == 3)
         throw parsingException();
+    std::cout << "First parsing :" << std::endl;
     displayVector();
-    
+    if (!_v.empty())
+        sortPairs(0, static_cast<int>(_v.size()) - 1);
+    std::cout << "Second parsing :" << std::endl;
+    displayVector();
+    std::cout << "Chain :" << std::endl;
+    fillTheChain();
+    displayList();
     
     
 }
