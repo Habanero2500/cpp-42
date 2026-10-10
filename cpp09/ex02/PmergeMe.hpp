@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:47 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/09 16:54:06 by user             ###   ########.fr       */
+/*   Updated: 2026/10/10 16:03:58 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,60 @@
 #include <utility>
 #include <stdexcept>
 #include <list>
+#include <climits>
 
 class PmergeMe {
 
 public :
 
-PmergeMe( void );
-~PmergeMe( void );
-PmergeMe( const PmergeMe& copy);
-PmergeMe& operator=(const PmergeMe& copy);
+// PmergeMe( void );
+// ~PmergeMe( void );
+// PmergeMe( const PmergeMe& copy);
+// PmergeMe& operator=(const PmergeMe& copy);
 
 PmergeMe( const char* str );
 
 int parsing( const char* str );
+void displayVector( void );
+int checkValue( void );
+void displayList( void );
 
+
+class caracterException : public std::exception{
+    
+    public :
+    virtual const char *what() const throw()
+    {
+        return "Forbidden caracter used";
+    }
+    
+};
+
+class maxException : public std::exception{
+    
+    public :
+    virtual const char *what() const throw()
+    {
+        return "One of the input overcome INT_MAX";
+    }
+    
+};
 
 class parsingException : public std::exception{
     
     public :
     virtual const char *what() const throw()
     {
-        return "The input does not respects the parsing standard";
+        return "The input contains two similar numbers";
     }
     
 };
-
 private : 
 
-std::vector<std::pair<int,int>> _v; //first et second comme avec la map
-std::list<int> _l; //second container pour tout afficher
+std::vector<std::pair<int,int> > _v; //first et second comme avec la map
+std::list<int> _mainChain; //second container pour tout afficher
+int _straggler;
+bool _hasStraggler; 
 
 
 };

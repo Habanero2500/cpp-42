@@ -6,12 +6,12 @@
 #    By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/18 17:17:29 by jmetayer          #+#    #+#              #
-#    Updated: 2026/10/08 13:30:08 by jmetayer         ###   ########.fr        #
+#    Updated: 2026/10/10 13:25:25 by jmetayer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = RPN
-SRCS = main.cpp RPN.cpp
+SRCS = main.cpp PmergeMe.cpp
 
 CC = c++ 
 FLAGS = -Wall -Werror -Wextra -std=c++98

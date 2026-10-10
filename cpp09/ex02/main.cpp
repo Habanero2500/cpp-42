@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:55 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/09 16:20:12 by user             ###   ########.fr       */
+/*   Updated: 2026/10/10 13:24:37 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int main (int argc, char **argv)
     }
     try
     {
-        PmergeMe(argv[1]);
+        PmergeMe ford(argv[1]);
     }
     catch(const std::exception& e)
     {
