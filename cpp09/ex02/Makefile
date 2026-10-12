@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+         #
+#    By: user <user@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/18 17:17:29 by jmetayer          #+#    #+#              #
-#    Updated: 2026/10/10 13:25:25 by jmetayer         ###   ########.fr        #
+#    Updated: 2026/10/12 14:22:14 by user             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = RPN
+NAME = PmergeMe
 SRCS = main.cpp PmergeMe.cpp
 
 CC = c++ 

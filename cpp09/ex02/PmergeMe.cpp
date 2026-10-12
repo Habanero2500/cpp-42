@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:50 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/10 18:53:30 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/12 15:24:22 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@ void PmergeMe::sortPairs(int left, int right)
 {
     if (left >= right)
         return;
-
     int mid = left + (right - left) / 2;
-
     sortPairs(left, mid);
     sortPairs(mid + 1, right);
-
     mergePairs(left, mid, right);
 }
 
@@ -48,8 +45,6 @@ void PmergeMe::mergePairs(int left, int mid, int right)
     for (int k = 0; k < static_cast<int>(temp.size()); ++k)
         _v[left + k] = temp[k];
 }
-
-
 
 int PmergeMe::checkValue(void)
 {
@@ -144,10 +139,48 @@ void PmergeMe::fillTheChain( void )
     }   
 }
 
+std::vector<int> PmergeMe::jacobsthalOrder( int k )
+{
+    std::vector<int> order;
+    int jPrev = 1;
+    int jCur = 3;
+ 
+    while (jPrev < k)
+    {
+        int upper = (jCur < k) ? jCur : k; // Le plus grand entre la current borne maximale du jo et la taille du container
+        for (int i = upper; i > jPrev; --i) //Parcours chaque borne en décroissant
+            order.push_back(i);
+        int next = jCur + 2 * jPrev;
+        jPrev = jCur;
+        jCur = next;
+    }
+    return order;
+}
+void PmergeMe::insertPending( void )
+{
+    std::vector<int> order = jacobsthalOrder(_v.size());
+
+    for (uint n = 0; n < order.size(); ++n)
+    {
+        int i = order[n];
+        int a = _v[i - 1].first;      // le grand, valeur max de l'intervalle
+        int b = _v[i - 1].second;
+        std::list<int>::iterator limit = std::find(_mainChain.begin(), _mainChain.end(), a); //Cherche le nouvel emplacement vu que ça se décale après chaque itération
+        std::list<int>::iterator pos = std::lower_bound(_mainChain.begin(), limit, b); // Retourne le lower_bound
+        _mainChain.insert(pos, b);
+    }
+    if (_hasStraggler)
+    {
+        std::list<int>::iterator pos =
+            std::lower_bound(_mainChain.begin(), _mainChain.end(), _straggler);
+        _mainChain.insert(pos, _straggler);
+    }
+}
+
 void PmergeMe::displayList( void )
 {
     for(std::list<int>::iterator it = _mainChain.begin() ; it != _mainChain.end() ; ++it )
-        std::cout << *it << std::endl;
+        std::cout << *it << " ";
 }
 
 PmergeMe::PmergeMe( const char* str ) : _straggler(0), _hasStraggler(false) 
@@ -159,15 +192,9 @@ PmergeMe::PmergeMe( const char* str ) : _straggler(0), _hasStraggler(false)
         throw maxException();
     if(parse == 3)
         throw parsingException();
-    std::cout << "First parsing :" << std::endl;
-    displayVector();
     if (!_v.empty())
         sortPairs(0, static_cast<int>(_v.size()) - 1);
-    std::cout << "Second parsing :" << std::endl;
-    displayVector();
-    std::cout << "Chain :" << std::endl;
     fillTheChain();
+    insertPending( );
     displayList();
-    
-    
 }

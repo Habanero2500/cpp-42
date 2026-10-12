@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:47 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/10 18:15:15 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/12 15:13:53 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void sortPairs(int left, int right);
 void mergePairs(int left, int mid, int right);
 void fillTheChain( void );
 
+void insertPending( void );
+std::vector<int> jacobsthalOrder( int k );
 
 class caracterException : public std::exception{
     
