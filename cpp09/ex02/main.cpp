@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:55 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/10 13:24:37 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/12 17:15:53 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PmergeMe.hpp"
+// #include "PmergeMe.hpp"
+#include "test.hpp"
 
 /*Ford Johnson algorithm (merge, insertin sort)
 Etape 1 on regroupe les elements par pairs, le plus grand de vient a_i et le plus petit devient b_i 
