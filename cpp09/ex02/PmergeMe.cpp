@@ -6,13 +6,29 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:50 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/13 12:20:28 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/13 14:02:20 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "PmergeMe.hpp"
 
+// **** FORME CANONIQUE ****
+PmergeMe::PmergeMe( void ) : _argument(NULL){}
+
+PmergeMe::~PmergeMe( void ){}
+
+PmergeMe::PmergeMe( const PmergeMe& copy ) : _input(copy._input), _argument(copy._argument){}
+
+PmergeMe &PmergeMe::operator= (const PmergeMe& copy){
+        if(this != &copy)
+        {
+            _input = copy._input;
+            _argument = copy._argument;    
+        }
+    return *this;    
+}
+
+// **** ALGO UTILS ****
 std::vector<uint> PmergeMe::jacobsthalOrder( uint val )
 {
     std::vector<uint> order;
@@ -30,6 +46,9 @@ std::vector<uint> PmergeMe::jacobsthalOrder( uint val )
     }
     return order;
 }
+
+// **** PARSING UTILS ****
+
 int PmergeMe::checkValue( void )
 {
     for (uint i = 0; i < _input.size(); ++i)
@@ -42,7 +61,7 @@ int PmergeMe::checkValue( void )
     }
     return 0;
 }
-int PmergeMe::parsing( const char* str )
+int PmergeMe::parsing( const char* str ) 
 {
     long long res = 0;
     bool number = false;
@@ -76,23 +95,27 @@ int PmergeMe::parsing( const char* str )
     return 0;
 }
 
-PmergeMe::PmergeMe( const char* str )
+PmergeMe::PmergeMe( const char* str ) : _argument(str)
 {
     //**** PARSING ****
     int parse(parsing(str));
-    if (parse == 1)
+
+    switch(parse)
+    {
+        case 1 :
         throw caracterException();
-    if (parse == 2)
+        case 2 : 
         throw maxException();
-    if (parse == 3)
+        case 3 :
         throw parsingException();
+    }
+
     std::cout << "Before:";
     for (uint i = 0; i < _input.size(); ++i)
         std::cout << " " << _input[i];
     std::cout << std::endl;
 
-    //**** ALGO ****
-    
+    //**** ALGO ****    
     std::vector<int> v;
     std::list<int> l;
     double timeVector = sortAndTime(v);

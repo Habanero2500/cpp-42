@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:47 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/13 12:20:51 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/13 14:08:18 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ class PmergeMe {
 
 public :
 
+
+    //**** ORTHODOX CANONICAL FORM ****
+
+    PmergeMe( void );
+    PmergeMe( const PmergeMe& copy );
+    PmergeMe& operator= (const PmergeMe& copy);
+    ~PmergeMe( void );
+
     // **** CONSTRUCTEUR ****
     PmergeMe( const char* str );
 
@@ -36,13 +44,14 @@ public :
     int checkValue( void );
 
     // **** FORD JOHNSON ALGORITHM ****
-    std::vector<int> _input;
+
     static std::vector<uint> jacobsthalOrder( uint val );
+
     template <typename C> 
     void mergeInsert( C& c );
+    
     template <typename C> 
     double sortAndTime( C& result );
-
 
     // **** EXCEPTION ****
     class caracterException : public std::exception{
@@ -72,11 +81,10 @@ public :
         }
     };
 
-private :
+    private :
 
-    bool _hasStraggler;
-    int _straggler;
-
+    std::vector<int> _input;
+    const char* _argument;
 };
 
 // **** TEMPLATE ****
@@ -86,8 +94,8 @@ void PmergeMe::mergeInsert( T& c )
 {
     // FIRST PART : Using recursion to create the vector of pairs to determinate both the winner and the loser. 
     // Then the container is filled with only the winners and then call the recursion again to sort the winners
-    _straggler = 0;
-    _hasStraggler = (c.size() % 2 != 0);
+    int straggler = 0;
+    bool hasStraggler = (c.size() % 2 != 0);
     
     if (c.size() < 2)
         return;
@@ -100,7 +108,7 @@ void PmergeMe::mergeInsert( T& c )
         ++it;
         if (it == c.end())
         {
-            _straggler = a;
+            straggler = a;
             break;
         }
         int b = *it;
@@ -143,10 +151,10 @@ void PmergeMe::mergeInsert( T& c )
         typename T::iterator pos = std::lower_bound(chain.begin(), limit, b);
         chain.insert(pos, b);
     }
-    if (_hasStraggler)
+    if (hasStraggler)
     {
-        typename T::iterator pos = std::lower_bound(chain.begin(), chain.end(), _straggler);
-        chain.insert(pos, _straggler);
+        typename T::iterator pos = std::lower_bound(chain.begin(), chain.end(), straggler);
+        chain.insert(pos, straggler);
     }
     c = chain;
 }
