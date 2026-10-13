@@ -6,21 +6,12 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:39:33 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/07 21:21:57 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/13 17:41:52 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
-
-// BitcoinExchange::BitcoinExchange( const BitcoinExchange& copy )
-// {
-    
-// }
-// BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& copy)
-// {
-    
-// }
 void BitcoinExchange::displayDataBase( void )
 {
     for(std::map<std::string, float>::iterator it = _chain.begin() ; it != _chain.end() ; ++it)
@@ -253,6 +244,5 @@ BitcoinExchange::BitcoinExchange( std::ifstream& in )
     if(loadDataBase() == false)
         throw DataBaseException();    
     displayInput(in); 
-    
 }
 

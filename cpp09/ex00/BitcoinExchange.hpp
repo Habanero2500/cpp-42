@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 12:03:30 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/07 20:24:49 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/13 17:46:43 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,36 @@
 
 class BitcoinExchange{
 
-public :
-
- 
-
-    //Orthodox canonicl form
+    private :
     
-    // BitcoinExchange( void ){};
-    // BitcoinExchange( const BitcoinExchange& copy );
-    // BitcoinExchange& operator=(const BitcoinExchange& copy);
-    // ~BitcoinExchange( void ){};
+    std::map<std::string, float> _chain;
+    bool _leap;    
+
+    public :
+
+    // **** ORTHODOX CANONICAL FORM ****    
+    BitcoinExchange( void ){};
+    BitcoinExchange( const BitcoinExchange& copy ) : _chain(copy._chain), _leap(copy._leap){};
+    BitcoinExchange& operator=(const BitcoinExchange& copy)
+    {
+        if(this != &copy)
+        {
+            _chain = copy._chain;
+            _leap = copy._leap;
+        }
+        return *this;
+    }
+    ~BitcoinExchange( void ){};
     
     BitcoinExchange( std::ifstream& in );
     
-    //Check + database loading
+    //**** DATABASE LOADING ****
     
     bool argTest( int argc );
     bool loadDataBase( void );
     void displayDataBase( void );
     
-    //Date parsing :
+    //**** PARSING ****
     
     bool checkInput( std::ifstream &in );
     void displayInput( std::ifstream &in );
@@ -51,21 +61,13 @@ public :
     bool checkMonth( std::string month);
     bool checkDay( std::string year, std::string month, std::string day );
     void leapYear(std::string year);
-    
-    //value parsing : 
-
     std::string parseValue (std::string str);
     
-    //Conversion
-    
+    //**** CONVERSION *****
     float exactDate( std::string str );
     
-    //Bloquer si la date est avant le 2009-01-02
-    //
     
-    //Exception 
-    
-
+    //**** EXCEPTION *****
     class DataBaseException : public std::exception
     {
         public :
@@ -93,13 +95,6 @@ public :
         }
     };
     
-    private :
-    
-    std::map<std::string, float> _chain;
-    bool _leap;    
-    
-    
-
 
 };
 

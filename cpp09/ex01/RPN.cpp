@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 13:29:41 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/13 15:48:59 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/13 16:18:12 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int RPN::parseAndCompute( const char *str )
             _stack.push(res);
         }
     }
+    if(res > INT_MAX || res < INT_MAX)
+        return 2;
     std::cout << res << std::endl;
     return 0;
 }
@@ -128,4 +130,6 @@ RPN::RPN( const char *str )
 
     if(parseAndCompute(str) == 1)
         throw DivisionException();
+    else if(parseAndCompute(str) == 2)
+        throw MinMaxException();
 }

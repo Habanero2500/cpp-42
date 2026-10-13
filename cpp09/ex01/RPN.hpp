@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 11:22:24 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/13 15:54:34 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/13 17:27:39 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 #include <stack>
 #include <stdexcept>
 #include <string>
+#include <climits>
 
 class RPN{
   
     private :
         
     std::stack<long long> _stack;
-
     
     public :
     
@@ -106,10 +106,16 @@ class RPN{
             return "Too many operators for the number of elements";
         }
     };
-
-
     
-    
+    class MinMaxException : public std::exception 
+    {
+        public :
+        virtual const char *what() const throw()
+        {
+            return "Result is under INT_MIN or over INT_MAX";
+        }
+    };
+
 };
 
 
