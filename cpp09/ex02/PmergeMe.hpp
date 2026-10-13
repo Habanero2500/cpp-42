@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:47 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/12 15:28:53 by user             ###   ########.fr       */
+/*   Updated: 2026/10/13 12:20:51 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,73 +14,152 @@
 #define PMERGEME_HPP
 
 #include <iostream>
+#include <iomanip>
 #include <algorithm>
 #include <vector>
+#include <list>
 #include <utility>
 #include <stdexcept>
-#include <list>
 #include <climits>
+#include <cstddef>
 #include <ctime>
 
 class PmergeMe {
 
 public :
 
-// PmergeMe( void );
-// ~PmergeMe( void );
-// PmergeMe( const PmergeMe& copy);
-// PmergeMe& operator=(const PmergeMe& copy);
+    // **** CONSTRUCTEUR ****
+    PmergeMe( const char* str );
 
-PmergeMe( const char* str );
+    // **** PARSING ****
+    int parsing( const char* str );
+    int checkValue( void );
 
-int parsing( const char* str );
-void displayVector( void );
-int checkValue( void );
-void displayList( void );
-void sortPairs(int left, int right);
-void mergePairs(int left, int mid, int right);
-void fillTheChain( void );
+    // **** FORD JOHNSON ALGORITHM ****
+    std::vector<int> _input;
+    static std::vector<uint> jacobsthalOrder( uint val );
+    template <typename C> 
+    void mergeInsert( C& c );
+    template <typename C> 
+    double sortAndTime( C& result );
 
-void insertPending( void );
-std::vector<int> jacobsthalOrder( int k );
 
-class caracterException : public std::exception{
+    // **** EXCEPTION ****
+    class caracterException : public std::exception{
     
-    public :
-    virtual const char *what() const throw()
+        public :
+        virtual const char *what() const throw()
+        {
+            return "Forbidden caracter used";
+        }
+    };
+
+    class maxException : public std::exception{
+
+            public :
+        virtual const char *what() const throw()
+        {
+            return "One of the input overcome INT_MAX";
+        }
+};
+
+    class parsingException : public std::exception{
+
+        public :
+        virtual const char *what() const throw()
+        {
+            return "The input contains two similar numbers";
+        }
+    };
+
+private :
+
+    bool _hasStraggler;
+    int _straggler;
+
+};
+
+// **** TEMPLATE ****
+
+template < typename T >
+void PmergeMe::mergeInsert( T& c )
+{
+    // FIRST PART : Using recursion to create the vector of pairs to determinate both the winner and the loser. 
+    // Then the container is filled with only the winners and then call the recursion again to sort the winners
+    _straggler = 0;
+    _hasStraggler = (c.size() % 2 != 0);
+    
+    if (c.size() < 2)
+        return;
+    
+    std::vector<std::pair<int, int> > pairs;
+    typename T::iterator it = c.begin();
+    while (it != c.end())
     {
-        return "Forbidden caracter used";
+        int a = *it;
+        ++it;
+        if (it == c.end())
+        {
+            _straggler = a;
+            break;
+        }
+        int b = *it;
+        ++it;
+        if (a > b)
+            pairs.push_back(std::make_pair(a, b));
+        else
+            pairs.push_back(std::make_pair(b, a));
     }
+    T winners;
+    for (uint i = 0; i < pairs.size(); ++i)
+        winners.push_back(pairs[i].first);
+    mergeInsert(winners);
     
-};
-
-class maxException : public std::exception{
-    
-    public :
-    virtual const char *what() const throw()
+    // SECOND PART : The pairs are sorted from the smallest to the biggest winner puis on rajoute le loser du plus petit winner
+    std::vector<std::pair<int, int> > sorted;
+    for (it = winners.begin(); it != winners.end(); ++it)
     {
-        return "One of the input overcome INT_MAX";
+        for (uint j = 0; j < pairs.size(); ++j)
+        {
+            if (pairs[j].first == *it)
+            {
+                sorted.push_back(pairs[j]);
+                break;
+            }
+        }
     }
-    
-};
+    T chain(winners);
+    chain.insert(chain.begin(), sorted[0].second);
 
-class parsingException : public std::exception{
-    
-    public :
-    virtual const char *what() const throw()
+    // THIRD PART : Insertion of the smallest according to the jacobsthal order, it is interresting to  
+    // notice that the lower_bound fonction is using the binary insertion to proceed
+    std::vector<uint> order = jacobsthalOrder(sorted.size());
+    for (uint n = 0; n < order.size(); ++n)
     {
-        return "The input contains two similar numbers";
+        uint i = order[n];
+        int a = sorted[i - 1].first;
+        int b = sorted[i - 1].second;
+        typename T::iterator limit = std::find(chain.begin(), chain.end(), a);
+        typename T::iterator pos = std::lower_bound(chain.begin(), limit, b);
+        chain.insert(pos, b);
     }
-    
-};
-private : 
+    if (_hasStraggler)
+    {
+        typename T::iterator pos = std::lower_bound(chain.begin(), chain.end(), _straggler);
+        chain.insert(pos, _straggler);
+    }
+    c = chain;
+}
 
-std::vector<std::pair<int,int> > _v; //first et second comme avec la map
-std::list<int> _mainChain; //second container pour tout afficher
-int _straggler;
-bool _hasStraggler; 
+template < typename T >
+double PmergeMe::sortAndTime( T& result )
+{
+    std::clock_t start = std::clock();
 
-
-};
+    result.assign(_input.begin(), _input.end());
+    mergeInsert(result);
+    std::clock_t end = std::clock();
+    return static_cast<double>(end - start) * 1000000.0 / CLOCKS_PER_SEC;
+}
 
 #endif

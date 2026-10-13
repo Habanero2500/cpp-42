@@ -3,74 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:50 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/12 15:24:22 by user             ###   ########.fr       */
+/*   Updated: 2026/10/13 12:20:28 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "PmergeMe.hpp"
 
-void PmergeMe::sortPairs(int left, int right)
+std::vector<uint> PmergeMe::jacobsthalOrder( uint val )
 {
-    if (left >= right)
-        return;
-    int mid = left + (right - left) / 2;
-    sortPairs(left, mid);
-    sortPairs(mid + 1, right);
-    mergePairs(left, mid, right);
-}
+    std::vector<uint> order;
+    uint jPrev = 1;
+    uint jCur = 3;
 
-void PmergeMe::mergePairs(int left, int mid, int right)
-{
-    std::vector<std::pair<int, int> > temp;
-    int i = left;
-    int j = mid + 1;
-
-    while (i <= mid && j <= right)
+    while (jPrev < val)
     {
-        if (_v[i].first <= _v[j].first)
-            temp.push_back(_v[i++]);
-        else
-            temp.push_back(_v[j++]);
+        uint upper = (jCur < val) ? jCur : val;
+        for (uint i = upper; i > jPrev; --i)
+            order.push_back(i);
+        uint next = jCur + 2 * jPrev;
+        jPrev = jCur;
+        jCur = next;
     }
-
-    while (i <= mid)
-        temp.push_back(_v[i++]);
-
-    while (j <= right)
-        temp.push_back(_v[j++]);
-
-    for (int k = 0; k < static_cast<int>(temp.size()); ++k)
-        _v[left + k] = temp[k];
+    return order;
 }
-
-int PmergeMe::checkValue(void)
+int PmergeMe::checkValue( void )
 {
-    for (std::vector<std::pair<int, int> >::iterator it = _v.begin(); it != _v.end(); ++it)
+    for (uint i = 0; i < _input.size(); ++i)
     {
-        int val1 = it->first;
-        int val2 = it->second;
-        
-        if (val1 == val2)
-            return 1;
-        for (std::vector<std::pair<int, int> >::iterator iter = it + 1; iter != _v.end(); ++iter)
+        for (uint j = i + 1; j < _input.size(); ++j)
         {
-            if (val1 == iter->first || val1 == iter->second || val2 == iter->first || val2 == iter->second)
+            if (_input[i] == _input[j])
                 return 1;
         }
-        if (_hasStraggler && (val1 == _straggler || val2 == _straggler))
-            return 1;
     }
     return 0;
 }
-int PmergeMe::parsing(const char* str)
+int PmergeMe::parsing( const char* str )
 {
     long long res = 0;
     bool number = false;
-    int value = 0;
-    bool first = false;
 
     for (int i = 0; ; ++i)
     {
@@ -89,112 +64,46 @@ int PmergeMe::parsing(const char* str)
         }
         if (number)
         {
-            if (!first)
-            {
-                value = static_cast<int>(res);
-                first = true;
-            }
-            else
-            {
-                if (res == value)
-                    return 3;
-                int current = static_cast<int>(res);
-                if (value < current)
-                    _v.push_back(std::make_pair(current, value));
-                else
-                    _v.push_back(std::make_pair(value, current));
-                first = false;
-            }
+            _input.push_back(static_cast<int>(res));
             res = 0;
             number = false;
         }
         if (str[i] == '\0')
             break;
     }
-    if (first)
-    {
-        _straggler = value;
-        _hasStraggler = true;
-    }
     if (checkValue() == 1)
         return 3;
     return 0;
 }
 
-void PmergeMe::displayVector( void )
+PmergeMe::PmergeMe( const char* str )
 {
-    for (std::vector<std::pair<int, int> >::iterator it = _v.begin() ; it != _v.end() ; ++it )
-        std::cout << it->first << " " << it->second << std::endl; 
-    if(_hasStraggler == 1)
-        std::cout << _straggler << std::endl;
-}
-
-void PmergeMe::fillTheChain( void )
-{
-    for(std::vector<std::pair< int, int> >::iterator iter = _v.begin() ; iter != _v.end() ; ++iter )
-    {
-        if(iter == _v.begin())
-            _mainChain.push_back(iter->second);
-        _mainChain.push_back(iter->first);
-    }   
-}
-
-std::vector<int> PmergeMe::jacobsthalOrder( int k )
-{
-    std::vector<int> order;
-    int jPrev = 1;
-    int jCur = 3;
- 
-    while (jPrev < k)
-    {
-        int upper = (jCur < k) ? jCur : k; // Le plus grand entre la current borne maximale du jo et la taille du container
-        for (int i = upper; i > jPrev; --i) //Parcours chaque borne en décroissant
-            order.push_back(i);
-        int next = jCur + 2 * jPrev;
-        jPrev = jCur;
-        jCur = next;
-    }
-    return order;
-}
-void PmergeMe::insertPending( void )
-{
-    std::vector<int> order = jacobsthalOrder(_v.size());
-
-    for (uint n = 0; n < order.size(); ++n)
-    {
-        int i = order[n];
-        int a = _v[i - 1].first;      // le grand, valeur max de l'intervalle
-        int b = _v[i - 1].second;
-        std::list<int>::iterator limit = std::find(_mainChain.begin(), _mainChain.end(), a); //Cherche le nouvel emplacement vu que ça se décale après chaque itération
-        std::list<int>::iterator pos = std::lower_bound(_mainChain.begin(), limit, b); // Retourne le lower_bound
-        _mainChain.insert(pos, b);
-    }
-    if (_hasStraggler)
-    {
-        std::list<int>::iterator pos =
-            std::lower_bound(_mainChain.begin(), _mainChain.end(), _straggler);
-        _mainChain.insert(pos, _straggler);
-    }
-}
-
-void PmergeMe::displayList( void )
-{
-    for(std::list<int>::iterator it = _mainChain.begin() ; it != _mainChain.end() ; ++it )
-        std::cout << *it << " ";
-}
-
-PmergeMe::PmergeMe( const char* str ) : _straggler(0), _hasStraggler(false) 
-{
+    //**** PARSING ****
     int parse(parsing(str));
-   if(parse == 1)
+    if (parse == 1)
         throw caracterException();
-    if(parse == 2)
+    if (parse == 2)
         throw maxException();
-    if(parse == 3)
+    if (parse == 3)
         throw parsingException();
-    if (!_v.empty())
-        sortPairs(0, static_cast<int>(_v.size()) - 1);
-    fillTheChain();
-    insertPending( );
-    displayList();
+    std::cout << "Before:";
+    for (uint i = 0; i < _input.size(); ++i)
+        std::cout << " " << _input[i];
+    std::cout << std::endl;
+
+    //**** ALGO ****
+    
+    std::vector<int> v;
+    std::list<int> l;
+    double timeVector = sortAndTime(v);
+    double timeList = sortAndTime(l);
+
+    std::cout << "After:";
+    for (uint i = 0; i < v.size(); ++i)
+        std::cout << " " << v[i];
+    std::cout << std::endl;
+
+    std::cout << std::fixed << std::setprecision(5);
+    std::cout << "Time to process a range of " << _input.size() << " elements with std::vector : " << timeVector << " us" << std::endl;
+    std::cout << "Time to process a range of " << _input.size() << " elements with std::list : " << timeList << " us" << std::endl;
 }
