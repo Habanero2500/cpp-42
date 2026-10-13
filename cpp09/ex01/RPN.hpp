@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 11:22:24 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/08 16:08:13 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/13 15:54:34 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,25 @@ class RPN{
     std::stack<long long> _stack;
 
     
-    public : 
+    public :
+    
+    //**** ORTHODOX CANOMICAL FORM ****
+    RPN( void ){} 
+    RPN (const RPN& copy) : _stack (copy._stack) {}
+    RPN& operator=(const RPN& copy){
+        if(this != &copy)
+            _stack = copy._stack;
+        return *this;
+    }
+    ~RPN( void ){}
+    
+    RPN(const char *str);
 
+    //**** PARSING AND EXEC ****
+    int checkElement( const char* str );
+    int parseAndCompute( const char *str );
+
+    // **** EXCEPTIONS ****
     class DivisionException : public std::exception{
 
     public : 
@@ -90,17 +107,7 @@ class RPN{
         }
     };
 
-    //Forme canonique
-    // RPN( void );
-    // RPN (const RPN& copy);
-    // RPN& operator=(const RPN& copy);
-    // ~RPN( void );
-    
-    RPN(const char *str);
-    
-    //Parsing
-    int checkElement( const char* str );
-    int parseAndCompute( const char *str );
+
     
     
 };

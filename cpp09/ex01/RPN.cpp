@@ -6,13 +6,11 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 13:29:41 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/08 16:21:47 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/13 15:48:59 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
-
-
 
 int RPN::parseAndCompute( const char *str )
 {
@@ -114,18 +112,20 @@ RPN::RPN( const char *str )
 {
     int check(checkElement(str));
     
-    if(check == 1)
+    switch(check)
+    {
+        case 1 :
         throw NotEnoughElementsException();
-    if(check == 2)
+        case 2 :
         throw NotEnoughOperatorException();
-    if(check == 3)
+        case 3 : 
         throw WrongCharacterException();
-    if(check == 4)
+        case 4 : 
         throw NoSeparationException();
-    if(check == 5)
+        case 5 : 
         throw WrongCombinationException();
+    }
 
-    
     if(parseAndCompute(str) == 1)
         throw DivisionException();
 }
