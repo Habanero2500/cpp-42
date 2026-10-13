@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:55 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/13 14:28:38 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/13 15:26:10 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int main (int argc, char **argv)
     }
     try
     {
-        PmergeMe fj(args.c_str());      
-        PmergeMe test(fj);
+        PmergeMe fj(args.c_str());
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
+        return 1;
     }
     return 0;
 }

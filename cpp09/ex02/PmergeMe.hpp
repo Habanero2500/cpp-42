@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:47 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/13 14:08:18 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/13 15:25:05 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ public :
 
 
     //**** ORTHODOX CANONICAL FORM ****
-
     PmergeMe( void );
     PmergeMe( const PmergeMe& copy );
     PmergeMe& operator= (const PmergeMe& copy);

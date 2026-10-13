@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:50 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/13 14:02:20 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/13 15:24:57 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int PmergeMe::parsing( const char* str )
 
             if (res > INT_MAX)
                 return 2;
-
             continue;
         }
         if (number)
