@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:50 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/14 01:38:03 by user             ###   ########.fr       */
+/*   Updated: 2026/10/14 12:16:05 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,168 +47,7 @@ std::vector<uint> PmergeMe::jacobsthalOrder( uint val )
     return order;
 }
 
-
-// **** FORD JOHNSON : VERSION STD::VECTOR ****
-void PmergeMe::mergeInsert( std::vector<int>& c )
-{
-    if (c.size() < 2)
-        return;
- 
-    // FIRST PART : on forme les paires (first = winner, second = loser),
-    // puis on trie les winners en rappelant l'algorithme (recursion).
-    // Paires et straggler sont LOCAUX : chaque niveau de recursion a les siens.
-    bool hasStraggler = (c.size() % 2 != 0);
-    int straggler = 0;
-    std::vector<std::pair<int, int> > pairs;
- 
-    for (uint i = 0; i + 1 < c.size(); i += 2)   // acces direct par indice
-    {
-        if (c[i] > c[i + 1])
-            pairs.push_back(std::make_pair(c[i], c[i + 1]));
-        else
-            pairs.push_back(std::make_pair(c[i + 1], c[i]));
-    }
-    if (hasStraggler)
-        straggler = c[c.size() - 1];
- 
-    std::vector<int> winners;
-    for (uint i = 0; i < pairs.size(); ++i)
-        winners.push_back(pairs[i].first);
-    mergeInsert(winners);
- 
-    // SECOND PART : on range les paires dans l'ordre des winners tries
-    // (sans doublon, la valeur du winner identifie sa paire),
-    // puis on place le loser du plus petit winner en tete de chaine.
-    std::vector<std::pair<int, int> > sorted;
-    for (uint i = 0; i < winners.size(); ++i)
-    {
-        for (uint j = 0; j < pairs.size(); ++j)
-        {
-            if (pairs[j].first == winners[i])
-            {
-                sorted.push_back(pairs[j]);
-                break;
-            }
-        }
-    }
-    std::vector<int> chain(winners);
-    chain.insert(chain.begin(), sorted[0].second);
- 
-    // THIRD PART : insertion des losers dans l'ordre de Jacobsthal.
-    // lower_bound = recherche dichotomique, limitee a la zone AVANT a_i.
-    std::vector<uint> order = jacobsthalOrder(sorted.size());
-    for (uint n = 0; n < order.size(); ++n)
-    {
-        uint i = order[n];
-        int a = sorted[i - 1].first;
-        int b = sorted[i - 1].second;
-        std::vector<int>::iterator limit = std::find(chain.begin(), chain.end(), a);
-        std::vector<int>::iterator pos = std::lower_bound(chain.begin(), limit, b);
-        chain.insert(pos, b);
-    }
-    if (hasStraggler)
-    {
-        std::vector<int>::iterator pos =
-            std::lower_bound(chain.begin(), chain.end(), straggler);
-        chain.insert(pos, straggler);
-    }
-    c = chain;
-}
- 
-// **** FORD JOHNSON : VERSION LIST ****
-// std::list n'a pas d'acces par indice : on parcourt avec des iterateurs.
-void PmergeMe::mergeInsert( std::list<int>& c )
-{
-    if (c.size() < 2)
-        return;
- 
-    bool hasStraggler = (c.size() % 2 != 0);
-    int straggler = 0;
-    std::vector<std::pair<int, int> > pairs;
- 
-    std::list<int>::iterator it = c.begin();
-    while (it != c.end())
-    {
-        int a = *it;
-        ++it;
-        if (it == c.end())
-        {
-            straggler = a;
-            break;
-        }
-        int b = *it;
-        ++it;
-        if (a > b)
-            pairs.push_back(std::make_pair(a, b));
-        else
-            pairs.push_back(std::make_pair(b, a));
-    }
- 
-    std::list<int> winners;
-    for (uint i = 0; i < pairs.size(); ++i)
-        winners.push_back(pairs[i].first);
-    mergeInsert(winners);
- 
-    std::vector<std::pair<int, int> > sorted;
-    for (it = winners.begin(); it != winners.end(); ++it)
-    {
-        for (uint j = 0; j < pairs.size(); ++j)
-        {
-            if (pairs[j].first == *it)
-            {
-                sorted.push_back(pairs[j]);
-                break;
-            }
-        }
-    }
-    std::list<int> chain(winners);
-    chain.push_front(sorted[0].second);
- 
-    std::vector<uint> order = jacobsthalOrder(sorted.size());
-    for (uint n = 0; n < order.size(); ++n)
-    {
-        uint i = order[n];
-        int a = sorted[i - 1].first;
-        int b = sorted[i - 1].second;
-        std::list<int>::iterator limit = std::find(chain.begin(), chain.end(), a);
-        std::list<int>::iterator pos = std::lower_bound(chain.begin(), limit, b);
-        chain.insert(pos, b);
-    }
-    if (hasStraggler)
-    {
-        std::list<int>::iterator pos =
-            std::lower_bound(chain.begin(), chain.end(), straggler);
-        chain.insert(pos, straggler);
-    }
-    c = chain;
-}
- 
-// **** CHRONOMETRAGE ****
-// Remplissage du conteneur (data management) + tri (sorting) sont tous deux mesures.
-double PmergeMe::sortAndTime( std::vector<int>& result )
-{
-    std::clock_t start = std::clock();
- 
-    result.assign(_input.begin(), _input.end());
-    mergeInsert(result);
- 
-    std::clock_t end = std::clock();
-    return static_cast<double>(end - start) * 1000000.0 / CLOCKS_PER_SEC;
-}
- 
-double PmergeMe::sortAndTime( std::list<int>& result )
-{
-    std::clock_t start = std::clock();
- 
-    result.assign(_input.begin(), _input.end());
-    mergeInsert(result);
- 
-    std::clock_t end = std::clock();
-    return static_cast<double>(end - start) * 1000000.0 / CLOCKS_PER_SEC;
-}
-
 // **** PARSING UTILS ****
-
 int PmergeMe::checkValue( void )
 {
     for (uint i = 0; i < _input.size(); ++i)
