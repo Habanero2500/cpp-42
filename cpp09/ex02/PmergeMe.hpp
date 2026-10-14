@@ -6,7 +6,7 @@
 /*   By: jmetayer <jmetayer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 16:23:47 by jmetayer          #+#    #+#             */
-/*   Updated: 2026/10/14 12:17:18 by jmetayer         ###   ########.fr       */
+/*   Updated: 2026/10/14 12:19:51 by jmetayer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ public :
     // **** FORD JOHNSON ALGORITHM ****
 
     static std::vector<uint> jacobsthalOrder( uint val );
-    void mergeInsert( std::vector<int>& c );
-    void mergeInsert( std::list<int>& c );
-    double sortAndTime( std::vector<int>& result );
-    double sortAndTime( std::list<int>& result );
+    template < typename T>
+    void mergeInsert( T& result );
+    
+    template < typename T>
+    double sortAndTime( T& c );
 
     // **** EXCEPTION ****
     class caracterException : public std::exception{
@@ -84,8 +85,7 @@ public :
     const char* _argument;
 };
 
-**** TEMPLATE ****
-
+// **** TEMPLATE ****
 template < typename T >
 void PmergeMe::mergeInsert( T& c )
 {
